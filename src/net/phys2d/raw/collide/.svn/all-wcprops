@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/80/trunk/phys2d/src/net/phys2d/raw/collide
+END
+CircleCircleCollider.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/collide/CircleCircleCollider.java
+END
+Intersection.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/collide/Intersection.java
+END
+FeaturePair.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/collide/FeaturePair.java
+END
+EdgeSweep.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/collide/EdgeSweep.java
+END
+LineLineCollider.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/collide/LineLineCollider.java
+END
+PolygonPolygonCollider.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/45/trunk/phys2d/src/net/phys2d/raw/collide/PolygonPolygonCollider.java
+END
+LinePolygonCollider.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/collide/LinePolygonCollider.java
+END
+PolygonBoxCollider.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/collide/PolygonBoxCollider.java
+END
+LineBoxCollider.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/32/trunk/phys2d/src/net/phys2d/raw/collide/LineBoxCollider.java
+END
+BoxBoxCollider.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/80/trunk/phys2d/src/net/phys2d/raw/collide/BoxBoxCollider.java
+END
+ColliderUnavailableException.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/68/trunk/phys2d/src/net/phys2d/raw/collide/ColliderUnavailableException.java
+END
+ColliderFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/collide/ColliderFactory.java
+END
+LineCircleCollider.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/collide/LineCircleCollider.java
+END
+PolygonCircleCollider.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/collide/PolygonCircleCollider.java
+END
+SwapCollider.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/80/trunk/phys2d/src/net/phys2d/raw/collide/SwapCollider.java
+END
+BoxCircleCollider.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/collide/BoxCircleCollider.java
+END
+IntersectionGatherer.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/collide/IntersectionGatherer.java
+END
+CircleBoxCollider.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/80/trunk/phys2d/src/net/phys2d/raw/collide/CircleBoxCollider.java
+END
+PenetrationSweep.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/collide/PenetrationSweep.java
+END
+Collider.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/5/trunk/phys2d/src/net/phys2d/raw/collide/Collider.java
+END

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/shapes
+END
+DynamicShape.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/5/trunk/phys2d/src/net/phys2d/raw/shapes/DynamicShape.java
+END
+Line.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/shapes/Line.java
+END
+Polygon.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/shapes/Polygon.java
+END
+Box.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/shapes/Box.java
+END
+ConvexPolygon.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/shapes/ConvexPolygon.java
+END
+AABox.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/5/trunk/phys2d/src/net/phys2d/raw/shapes/AABox.java
+END
+Shape.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/shapes/Shape.java
+END
+Circle.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/shapes/Circle.java
+END
+AbstractShape.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/43/trunk/phys2d/src/net/phys2d/raw/shapes/AbstractShape.java
+END

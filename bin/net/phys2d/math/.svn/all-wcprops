@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/79/trunk/phys2d/src/net/phys2d/math
+END
+MathUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/79/trunk/phys2d/src/net/phys2d/math/MathUtil.java
+END
+Vector2f.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/47/trunk/phys2d/src/net/phys2d/math/Vector2f.java
+END
+ROVector2f.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/65/trunk/phys2d/src/net/phys2d/math/ROVector2f.java
+END
+Matrix2f.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/5/trunk/phys2d/src/net/phys2d/math/Matrix2f.java
+END

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/43/trunk/phys2d/junit
+END
+EdgeSweepTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/43/trunk/phys2d/junit/EdgeSweepTest.java
+END
+PenetrationSweepTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/43/trunk/phys2d/junit/PenetrationSweepTest.java
+END
+FeaturePairListTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/43/trunk/phys2d/junit/FeaturePairListTest.java
+END
