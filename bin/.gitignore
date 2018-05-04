@@ -1,3 +1,10 @@
+/.svn/
+/net/
 /gameStuff.class
+<<<<<<< HEAD
 /GameStuff/
 /GameObject.class
+=======
+/KeyInput.class
+/Handler.class
+>>>>>>> 97089b634a8155243d46313d10d33ca2ec7752e1
