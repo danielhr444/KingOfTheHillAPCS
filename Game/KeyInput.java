@@ -7,12 +7,12 @@ import net.phys2d.raw.BodyList;
 public class KeyInput extends KeyAdapter
 {
 	private BodyList myHandler;
-	
+
 	public KeyInput(BodyList handler)
 	{
 		myHandler = handler;
 	}
-	
+
 	public void keyPressed(KeyEvent e)
 	{
 		int key = e.getKeyCode();
@@ -25,27 +25,34 @@ public class KeyInput extends KeyAdapter
 		for(int i = 0; i < myHandler.size(); i++)
 		{
 			Body thisObj = myHandler.get(i);
-			if (thisObj.getUserData().equals("Player 1"))
+			if (thisObj.getName().equals("Player 1"))
 			{
+				System.out.println("key pressed");
 				switch (key)
 				{
 				case KeyEvent.VK_A:
-					thisObj.setForce(-5, 0); //set vel to -5
+					thisObj.setForce(-150, 0); //set vel to -5
 					break;
 
 				case KeyEvent.VK_D:
-					thisObj.setForce(5, 0);
+					thisObj.setForce(150, 0);
 					break;
 
 				case KeyEvent.VK_W:
-					if (thisObj.getTouching().size() == 0)
+
+					System.out.println(thisObj.getTouching().size());
+					for (int l = 0; l < thisObj.getTouching().size(); l++)
 					{
-						thisObj.setForce(0, -10);
+						if (thisObj.getTouching().get(l).getName().equals("Floor"))
+						{
+							thisObj.setForce(0, -500);
+						}
 						//thisObj.setJumping(true);
 					}
+					break;
 				}
 			}
-			if (thisObj.getUserData().equals("Player 2"))
+			if (thisObj.getName().equals("Player 2"))
 			{
 				switch (key)
 				{
@@ -67,15 +74,15 @@ public class KeyInput extends KeyAdapter
 			}
 		}
 	}
-	
+
 	public void keyReleased(KeyEvent e)
 	{
 		int key = e.getKeyCode();
-		
+
 		for(int i = 0; i < myHandler.size(); i++)
 		{
 			Body thisObj = myHandler.get(i);
-			if (thisObj.getUserData().equals("Player 1"))
+			if (thisObj.getName().equals("Player 1"))
 			{
 				switch (key)
 				{
@@ -89,7 +96,7 @@ public class KeyInput extends KeyAdapter
 
 				}
 			}
-			if (thisObj.getUserData().equals("Player 2"))
+			if (thisObj.getName().equals("Player 2"))
 			{
 				switch (key)
 				{
@@ -103,7 +110,7 @@ public class KeyInput extends KeyAdapter
 
 				}
 			}
-			
+
 		}
 	}
 }

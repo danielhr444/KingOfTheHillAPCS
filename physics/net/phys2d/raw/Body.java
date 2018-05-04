@@ -1243,4 +1243,9 @@ public strictfp class Body {
 			}
 		}
 	}
+	
+	public String getName()
+	{
+		return name;
+	}
 }
