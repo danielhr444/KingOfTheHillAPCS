@@ -102,7 +102,7 @@ public strictfp class Body {
 	/** The inverse of this density */
 	private float invI;
 	/** The name assigned to this body */
-	private String name;
+	protected String name;
 	/** The id assigned ot this body */
 	private int id;
 	/** The restitution of this body */
