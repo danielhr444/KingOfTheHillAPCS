@@ -44,12 +44,12 @@ public class KeyInput extends KeyAdapter
 
 				case KeyEvent.VK_W:
 
-					System.out.println(thisObj.getTouching().size());
-					for (int l = 0; l < thisObj.getTouching().size(); l++)
+					//System.out.println(thisObj.getVelocity().getY());
+					//for (int l = 0; l < thisObj.getTouching().size(); l++)
 					{
-						if (thisObj.getTouching().get(l).getName().equals("Floor"))
+						if (thisObj.getVelocity().getY() == 0)
 						{
-							thisObj.addForce(new Vector2f(-thisObj.getForce().getX(), -thisObj.getForce().getY()));
+							//thisObj.addForce(new Vector2f(-thisObj.getForce().getX(), -thisObj.getForce().getY()));
 							thisObj.addForce(new Vector2f(0, -500));
 						}
 						//thisObj.setJumping(true);
@@ -61,20 +61,30 @@ public class KeyInput extends KeyAdapter
 			{
 				switch (key)
 				{
-				case KeyEvent.VK_RIGHT:
-					thisObj.setForce(5, 0);
+				case KeyEvent.VK_LEFT:
+					thisObj.addForce(new Vector2f(-thisObj.getForce().getX(), -thisObj.getForce().getY()));
+					thisObj.addForce(new Vector2f(-150, 0));
+					 //set vel to -5
 					break;
 
-				case KeyEvent.VK_LEFT:
-					thisObj.setForce(-5, 0);
+				case KeyEvent.VK_RIGHT:
+					thisObj.addForce(new Vector2f(-thisObj.getForce().getX(), -thisObj.getForce().getY()));
+					thisObj.addForce(new Vector2f(150, 0));
 					break;
 
 				case KeyEvent.VK_UP:
-					if (thisObj.getTouching().size() == 0)
+
+					//System.out.println(thisObj.getTouching().size());
+					//for (int l = 0; l < thisObj.getTouching().size(); l++)
 					{
-						thisObj.setForce(-0, 5);
+						if (thisObj.getVelocity().getY() == 0)
+						{
+							//thisObj.addForce(new Vector2f(-thisObj.getForce().getX(), -thisObj.getForce().getY()));
+							thisObj.addForce(new Vector2f(0, -500));
+						}
 						//thisObj.setJumping(true);
 					}
+					break;
 				}
 			}
 		}
