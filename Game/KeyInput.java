@@ -26,6 +26,7 @@ public class KeyInput extends KeyAdapter
 		for(int i = 0; i < myHandler.size(); i++)
 		{
 			Body thisObj = myHandler.get(i);
+			//thisObj.setMaxVelocity(75, 10000);
 			if (thisObj.getName().equals("Player 1"))
 			{
 				System.out.println("key pressed");
@@ -33,13 +34,13 @@ public class KeyInput extends KeyAdapter
 				{
 				case KeyEvent.VK_A:
 					thisObj.addForce(new Vector2f(-thisObj.getForce().getX(), -thisObj.getForce().getY()));
-					thisObj.addForce(new Vector2f(-150, 0));
+					thisObj.addForce(new Vector2f(-50, 0));
 					 //set vel to -5
 					break;
 
 				case KeyEvent.VK_D:
 					thisObj.addForce(new Vector2f(-thisObj.getForce().getX(), -thisObj.getForce().getY()));
-					thisObj.addForce(new Vector2f(150, 0));
+					thisObj.addForce(new Vector2f(50, 0));
 					break;
 
 				case KeyEvent.VK_W:

@@ -21,10 +21,11 @@ public class thisGame extends Game
 		floor.setMoveable(false);
 		floor.setRotatable(false);
 		world.add(floor);
-		Body wheel = new Body("Player 1", new Circle(50f), 0.25f);
-		wheel.setFriction(1000.0f);
-		wheel.setPosition(250.0f, 100.0f);// TODO Auto-generated method stub
-		world.add(wheel);
+		Body rectangle = new Body("Player 1", new Box(50f, 50f), 0.25f);
+		rectangle.setMaxVelocity(50, 1000);
+		rectangle.setFriction(0);
+		rectangle.setPosition(250.0f, 100.0f);// TODO Auto-generated method stub
+		world.add(rectangle);
 		
 		
 		
