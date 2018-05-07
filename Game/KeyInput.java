@@ -1,6 +1,7 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import net.phys2d.math.Vector2f;
 import net.phys2d.raw.Body;
 import net.phys2d.raw.BodyList;
 
@@ -31,11 +32,14 @@ public class KeyInput extends KeyAdapter
 				switch (key)
 				{
 				case KeyEvent.VK_A:
-					thisObj.setForce(-150, 0); //set vel to -5
+					thisObj.addForce(new Vector2f(-thisObj.getForce().getX(), -thisObj.getForce().getY()));
+					thisObj.addForce(new Vector2f(-150, 0));
+					 //set vel to -5
 					break;
 
 				case KeyEvent.VK_D:
-					thisObj.setForce(150, 0);
+					thisObj.addForce(new Vector2f(-thisObj.getForce().getX(), -thisObj.getForce().getY()));
+					thisObj.addForce(new Vector2f(150, 0));
 					break;
 
 				case KeyEvent.VK_W:
@@ -45,7 +49,8 @@ public class KeyInput extends KeyAdapter
 					{
 						if (thisObj.getTouching().get(l).getName().equals("Floor"))
 						{
-							thisObj.setForce(0, -500);
+							thisObj.addForce(new Vector2f(-thisObj.getForce().getX(), -thisObj.getForce().getY()));
+							thisObj.addForce(new Vector2f(0, -500));
 						}
 						//thisObj.setJumping(true);
 					}

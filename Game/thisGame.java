@@ -15,14 +15,14 @@ public class thisGame extends Game
 	protected void init(World world) 
 	{
 		
-		Body floor = new Body("Floor", new Line(0f, 200f, 200f, 200f), 100f);
+		Body floor = new Body("Floor", new Line(-2000f, 400f, 2000f, 400f), 100f);
 		floor.setGravityEffected(false);
 		floor.setPosition(50, 50);
 		floor.setMoveable(false);
 		floor.setRotatable(false);
 		world.add(floor);
 		Body wheel = new Body("Player 1", new Circle(50f), 0.25f);
-		
+		wheel.setFriction(1000.0f);
 		wheel.setPosition(250.0f, 100.0f);// TODO Auto-generated method stub
 		world.add(wheel);
 		
