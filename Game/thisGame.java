@@ -31,9 +31,9 @@ public class thisGame extends Game
 		Player me = new Player(new Box(50f, 50f), 0.2f, "Player 1");
 		me.setPosition(250.0f, 100.0f);
 		me.setRotatable(false);
-		me.setMass(10f);
+		me.setMass(20f);
 		
-		world.setGravity(0, 40f);
+		world.setGravity(0, 45f);
 		world.add(me);
 		
 	}

@@ -952,6 +952,11 @@ public strictfp class Body {
 		rotation += delta;
 	}
 	
+	protected void setVelocity(Vector2f force)
+	{
+		velocity = force;
+	}
+	
 	/**
 	 * Set the force being applied to this body
 	 * 

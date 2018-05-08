@@ -87,16 +87,18 @@ public class KeyInput extends KeyAdapter
 		for(int i = 0; i < myHandler.size(); i++)
 		{
 			Body thisObj = myHandler.get(i);
-			if (thisObj.getName().equals("Player 1"))
+			if (thisObj.getName().equals("Player 1") && thisObj instanceof Player)
 			{
+				Player thisPlayer = (Player)thisObj;
 				switch (key)
 				{
-				case KeyEvent.VK_RIGHT:
-					thisObj.setForce(0, 0);
+				case KeyEvent.VK_D:
+					thisPlayer.stop();
+					System.out.println("key released");
 					break;
 
-				case KeyEvent.VK_LEFT:
-					thisObj.setForce(0, 0);
+				case KeyEvent.VK_A:
+					thisPlayer.stop();
 					break;
 
 				}
