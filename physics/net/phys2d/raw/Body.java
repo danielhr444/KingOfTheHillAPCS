@@ -129,7 +129,7 @@ public strictfp class Body {
 	/** The number of hits this frame */
 	private int hitCount = 0;
 	/** True if resting body detection is turned on */
-	private boolean restingBodyDetection = false;
+	private boolean restingBodyDetection = true;
 	/** The velocity a body hitting a resting body has to have to consider moving it */
 	private float hitTolerance; 
 	/** The amount a body has to rotate for it to be considered non-resting */
@@ -139,11 +139,11 @@ public strictfp class Body {
 	/** The list of bodies this body touches */
 	private BodyList touching = new BodyList();
 	/** True if this body is touching a static */
-	private boolean touchingStatic = false;
+	protected boolean touchingStatic = false;
 	/** Number of bodies we're touching */
 	private int touchingCount;
 	/** True if this body is capable of coming to a resting state */
-	private boolean canRest = true;
+	protected boolean canRest = true;
 	
 	/** True if this body can rotate */
 	private boolean rotatable = true;

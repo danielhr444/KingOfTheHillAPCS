@@ -30,20 +30,25 @@ public class KeyInput extends KeyAdapter
 			if (thisObj.getName().equals("Player 1") && thisObj instanceof Player)
 			{
 				Player thisPlayer = (Player)thisObj;
-				System.out.println("key pressed");
+				
 				switch (key)
 				{
 				case KeyEvent.VK_A:
 
 					thisPlayer.moveLeft();//set vel to -5
+					thisPlayer.setMovingLeft(true);
 					break;
 
 				case KeyEvent.VK_D:
 					thisPlayer.moveRight();
+					thisPlayer.setMovingRight(true);
 					break;
 
 				case KeyEvent.VK_W:
-					thisPlayer.jump();
+					if (!thisPlayer.isUp())
+					{
+						thisPlayer.jump();
+					}
 					break;
 				}
 			}
@@ -66,15 +71,15 @@ public class KeyInput extends KeyAdapter
 
 					//System.out.println(thisObj.getTouching().size());
 					//for (int l = 0; l < thisObj.getTouching().size(); l++)
-				{
+
 					if (thisObj.getVelocity().getY() == 0)
 					{
 						//thisObj.addForce(new Vector2f(-thisObj.getForce().getX(), -thisObj.getForce().getY()));
 						thisObj.addForce(new Vector2f(0, -500));
 					}
 					//thisObj.setJumping(true);
-				}
-				break;
+
+					break;
 				}
 			}
 		}
@@ -93,25 +98,30 @@ public class KeyInput extends KeyAdapter
 				switch (key)
 				{
 				case KeyEvent.VK_D:
-					thisPlayer.stop();
-					System.out.println("key released");
+					thisPlayer.setMovingRight(false);
 					break;
 
 				case KeyEvent.VK_A:
-					thisPlayer.stop();
+					thisPlayer.setMovingLeft(false);
 					break;
 
 				}
+
+				if (!thisPlayer.isMovingLeft() && !thisPlayer.isMovingRight())
+				{
+					thisPlayer.stop();
+				}
+
 			}
 			if (thisObj.getName().equals("Player 2"))
 			{
 				switch (key)
 				{
-				case KeyEvent.VK_D:
+				case KeyEvent.VK_LEFT:
 					thisObj.setForce(0, 0);
 					break;
 
-				case KeyEvent.VK_A:
+				case KeyEvent.VK_RIGHT:
 					thisObj.setForce(0, 0);
 					break;
 
