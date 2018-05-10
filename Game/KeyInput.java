@@ -30,7 +30,7 @@ public class KeyInput extends KeyAdapter
 			if (thisObj.getName().equals("Player 1") && thisObj instanceof Player)
 			{
 				Player thisPlayer = (Player)thisObj;
-				
+
 				switch (key)
 				{
 				case KeyEvent.VK_A:
@@ -45,10 +45,9 @@ public class KeyInput extends KeyAdapter
 					break;
 
 				case KeyEvent.VK_W:
-					if (!thisPlayer.isUp())
-					{
-						thisPlayer.jump();
-					}
+
+					thisPlayer.jump();
+
 					break;
 				}
 			}

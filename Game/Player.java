@@ -1,3 +1,6 @@
+import java.util.Timer;
+import java.util.TimerTask;
+
 import net.phys2d.math.Vector2f;
 import net.phys2d.raw.Body;
 import net.phys2d.raw.BodyList;
@@ -11,15 +14,15 @@ public class Player extends Body
 	private boolean movingRight;
 	private boolean isUp = false;
 	int points;
-	
-	
-	
+
+
+
 	public boolean isUp() 
 	{
 		this.setCanRest(true);
 		BodyList list = this.getTouching();
 		if (list.size() == 0)
-			return false;
+			return true;
 		for (int i = 0; i < list.size(); i++)
 		{
 			System.out.println("Object Touching: " + list.get(i));
@@ -31,7 +34,7 @@ public class Player extends Body
 		return true;
 	}
 
-	
+
 	public boolean isMovingLeft() {
 		return movingLeft;
 	}
@@ -52,7 +55,7 @@ public class Player extends Body
 	}
 
 
-	
+
 
 
 	public Player(DynamicShape shape, float m, String myName) 
@@ -60,10 +63,14 @@ public class Player extends Body
 		super(myName, shape, m);
 		setDamping(0);
 
+		Timer timer = new Timer();
+		TimerTask pointHandler = new PointHandler();
+		timer.scheduleAtFixedRate(pointHandler, 1000, 1000);
+
 		// TODO Auto-generated constructor stub
 	}
 
-	
+
 	public void moveLeft()
 	{
 		setMaxVelocity(75.0f, 5000.0f);
@@ -82,20 +89,26 @@ public class Player extends Body
 
 	public void jump()
 	{
-		
+		if (!isUp())
+		{
 			setMaxVelocity(75.0f, 5000.0f);
 			adjustVelocity(new Vector2f(0, -100));
-			isUp = true;
+		}
 	}
 
 
 	public void stop()
 	{
-		this.setVelocity(new Vector2f(0,0));
-		
-	}
-	
+		this.setVelocity(new Vector2f(0,this.getVelocity().getY()));
 
+	}
+
+
+	public void update()
+	{
+		System.out.println("isrunnung");
+		this.startFrame();
+	}
 
 
 }

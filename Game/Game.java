@@ -99,9 +99,9 @@ public abstract class Game implements Runnable{
 		frame = new JFrame(title);
 		frame.setResizable(false);
 		frame.setIgnoreRepaint(true);
-		frame.setSize(500,500);
+		frame.setSize(800,500);
 		
-		int x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 500) / 2;
+		int x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 800) / 2;
 		int y = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 500) / 2;
 		
 		frame.setLocation(x,y);
@@ -164,7 +164,7 @@ public abstract class Game implements Runnable{
 			long beforeRender = System.currentTimeMillis();
 			Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 			g.setColor(Color.white);
-			g.fillRect(0,0,500,500);
+			g.fillRect(0,0,800,500);
 			
 			draw(g);
 			renderGUI(g);

@@ -7,6 +7,7 @@ import java.awt.*;
 public class thisGame extends Game 
 {
 
+	Player me;
 	public thisGame()
 	{
 		super("test");
@@ -16,6 +17,7 @@ public class thisGame extends Game
 	{
 		
 		Body floor = new Body("Floor", new Line(-2000f, 400f, 2000f, 400f), 100f);
+		floor.setIsResting(true);
 		floor.setGravityEffected(false);
 		floor.setPosition(50, 50);
 		floor.setMoveable(false);
@@ -28,7 +30,7 @@ public class thisGame extends Game
 		//rectangle.setPosition(250.0f, 100.0f);// TODO Auto-generated method stub
 		//world.add(rectangle);
 		
-		Player me = new Player(new Box(50f, 50f), 0.2f, "Player 1");
+		me  = new Player(new Box(50f, 50f), 0.2f, "Player 1");
 		me.setPosition(250.0f, 100.0f);
 		me.setRotatable(false);
 		me.setMass(20f);
@@ -43,6 +45,14 @@ public class thisGame extends Game
 		thisGame game = new thisGame();
 		game.start();
 
+	}
+
+	public void update() {
+		
+		me.update();
+		
+		// TODO Auto-generated method stub
+		
 	}
 
 	public void run() {

@@ -362,7 +362,7 @@ public strictfp class Body {
 	/**
 	 * Notification that we've started an update frame/iteration
 	 */
-	void startFrame() {
+	public void startFrame() {
 		if (!canRest()) {
 			return;
 		}

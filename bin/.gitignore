@@ -1,3 +1,5 @@
 /net/
 /.svn/
 /Player.class
+/Player$points.class
+/PointHandler.class
