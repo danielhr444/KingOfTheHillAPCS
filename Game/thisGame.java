@@ -21,7 +21,7 @@ public class thisGame extends Game
 		floor.setMoveable(false);
 		floor.setRotatable(false);
 		floor.setFriction(0f);
-		//world.add(floor);
+		world.add(floor);
 		//Body rectangle = new Body("Player 1", new Box(50f, 50f), 0.25f);
 		//rectangle.setMaxVelocity(50, 1000);
 		//rectangle.setFriction(0);
