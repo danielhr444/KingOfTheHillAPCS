@@ -47,9 +47,12 @@ public class KeyInput extends KeyAdapter
 				case KeyEvent.VK_W:
 
 					thisPlayer.jump();
-
+					
 					break;
 				}
+				
+				thisPlayer.clearTouching();
+			
 			}
 			if (thisObj.getName().equals("Player 2"))
 			{

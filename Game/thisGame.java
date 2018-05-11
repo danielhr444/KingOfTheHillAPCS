@@ -49,8 +49,10 @@ public class thisGame extends Game
 
 	public void update() {
 		
-		me.update();
-		
+		for (int i = 0; i < this.world.getBodies().size(); i++)
+		{
+			this.world.getBodies().get(i).update();
+		}
 		// TODO Auto-generated method stub
 		
 	}

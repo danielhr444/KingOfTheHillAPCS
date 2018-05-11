@@ -196,6 +196,10 @@ public strictfp class Body {
 		this("UnnamedBody",shape,m);
 	}
 
+	public void clearTouching()
+	{
+		touching.clear();
+	}
 	/**
 	 * Create a named body
 	 * 
@@ -1252,5 +1256,10 @@ public strictfp class Body {
 	public String getName()
 	{
 		return name;
+	}
+
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }

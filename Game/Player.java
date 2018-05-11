@@ -22,16 +22,22 @@ public class Player extends Body
 		this.setCanRest(true);
 		BodyList list = this.getTouching();
 		if (list.size() == 0)
+		{
+			
 			return true;
+		}
 		for (int i = 0; i < list.size(); i++)
 		{
-			System.out.println("Object Touching: " + list.get(i));
+
 			if (list.get(i).getName().equals("Floor"))
 			{
+				
 				return false;
 			}
 		}
+		
 		return true;
+
 	}
 
 
@@ -89,11 +95,16 @@ public class Player extends Body
 
 	public void jump()
 	{
+		
 		if (!isUp())
 		{
+			
 			setMaxVelocity(75.0f, 5000.0f);
 			adjustVelocity(new Vector2f(0, -100));
+			
 		}
+		
+		
 	}
 
 
@@ -106,8 +117,16 @@ public class Player extends Body
 
 	public void update()
 	{
-		System.out.println("isrunnung");
-		this.startFrame();
+		
+		System.out.println("isrunning");
+		System.out.print(this.getTouching());
+		//this.startFrame();
+		if (isUp())
+		{
+			this.clearTouching();
+		}
+		
+		
 	}
 
 
