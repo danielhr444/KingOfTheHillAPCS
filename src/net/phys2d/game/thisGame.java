@@ -2,6 +2,8 @@ package net.phys2d.game;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +30,7 @@ public class thisGame extends Game
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 
 	}
 
@@ -42,6 +45,8 @@ public class thisGame extends Game
 		floor.setRotatable(false);
 		floor.setFriction(0f);
 		world.add(floor);
+		
+		//Shape square = new Rectangle2D.Float(100.0f, 100.0f, 100.0f, 100.0f);
 		//Body rectangle = new Body("Player 1", new Box(50f, 50f), 0.25f);
 		//rectangle.setMaxVelocity(50, 1000);
 		//rectangle.setFriction(0);
@@ -78,8 +83,9 @@ public class thisGame extends Game
 	
 	protected void draw(Graphics2D g)
 	{
+		
+		g.drawImage(player,(int) (me.getX() - me.getWidth() / 2),(int) (me.getY() - me.getHeight() / 2),(int) me.getWidth(), (int) me.getHeight(),null);
 		super.draw(g);
-		g.drawImage(player,(int) me.getX(),(int) me.getY(), null);
 	}
 
 	public void run() {

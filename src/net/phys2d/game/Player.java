@@ -20,10 +20,20 @@ public class Player extends Body
 	{
 		return this.getPosition().getX();
 	}
+	
+	public float getHeight()
+	{
+		return this.getShape().getBounds().getHeight();
+	}
+	
+	public float getWidth()
+	{
+		return (this.getShape().getBounds().getWidth() - this.getShape().getBounds().getOffsetX());
+	}
 
 	public float getY()
 	{
-		return this.getPosition().getY();
+		return (this.getPosition().getY() - this.getShape().getBounds().getOffsetY());
 	}
 
 	public boolean isUp() 
