@@ -6,6 +6,8 @@ Changelog:
 3. Added KeyInput and fixed jumping/flying problem.
 4. Big file structure change- all files are now in src folder
 5. Images can be loaded
+6. Made a small jumping fix
+7. Made new WorldCreator class which inits world.
 
 Credits:
 1. Made by Daniel, Ankit, Andrew, and Aaron
