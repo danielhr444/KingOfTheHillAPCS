@@ -37,6 +37,8 @@ public class WorldCreator
 			block.setPosition(20f + (51 * i), 430f);
 			block.setMoveable(false);
 			block.setRotatable(false);
+			block.setFriction(0f);
+			
 			myWorld.add(block);
 		}
 	}

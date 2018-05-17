@@ -15,7 +15,7 @@ public class Player extends Body
 	private boolean movingRight;
 	private boolean isUp = false;
 	private int points;
-	private PointHandler pointHandler;
+	private pointCounter pointHandler;
 	
 	public Player(DynamicShape shape, float m, String myName) 
 	{
@@ -23,7 +23,7 @@ public class Player extends Body
 		setDamping(0);
 
 		Timer timer = new Timer();
-		pointHandler = new PointHandler();
+		pointHandler = new pointCounter();
 		timer.scheduleAtFixedRate(pointHandler, 1000, 1000);
 		setMaxVelocity(75.0f, 5000.0f);
 		// TODO Auto-generated constructor stub

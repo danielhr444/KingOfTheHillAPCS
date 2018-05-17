@@ -5,7 +5,7 @@ public class pointCounter extends TimerTask
 {
 	private int points;
 	
-	public PointHandler()
+	public pointCounter()
 	{
 		points = 0;
 	}

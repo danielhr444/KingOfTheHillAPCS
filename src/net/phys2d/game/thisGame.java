@@ -51,7 +51,7 @@ public class thisGame extends Game
 		me.setPosition(250.0f, 100.0f);
 		me.setRotatable(false);
 		me.setMass(20f);
-
+		me.setFriction(0f);
 		world.setGravity(0, 45f);
 		world.add(me);
 
