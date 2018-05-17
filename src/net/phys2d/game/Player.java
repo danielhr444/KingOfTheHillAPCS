@@ -1,7 +1,7 @@
 package net.phys2d.game;
 import java.util.Timer;
 import java.util.TimerTask;
-
+import net.phys2d.game.*;
 import net.phys2d.math.Vector2f;
 import net.phys2d.raw.Body;
 import net.phys2d.raw.BodyList;
@@ -25,9 +25,7 @@ public class Player extends Body
 		Timer timer = new Timer();
 		pointHandler = new PointHandler();
 		timer.scheduleAtFixedRate(pointHandler, 1000, 1000);
-		
 		setMaxVelocity(75.0f, 5000.0f);
-
 		// TODO Auto-generated constructor stub
 	}
 
@@ -62,7 +60,7 @@ public class Player extends Body
 		for (int i = 0; i < list.size(); i++)
 		{
 
-			if (list.get(i).getName().equals("Floor"))
+			if (list.get(i).getName().equals("Floor") || list.get(i).getName().equals("FloorBlock"))
 			{
 				System.out.println(list);
 				return false;

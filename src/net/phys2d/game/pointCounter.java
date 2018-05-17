@@ -1,7 +1,7 @@
 package net.phys2d.game;
 import java.util.TimerTask;
 
-public class PointHandler extends TimerTask
+public class pointCounter extends TimerTask
 {
 	private int points;
 	
