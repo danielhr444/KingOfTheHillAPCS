@@ -17,7 +17,7 @@ import net.phys2d.raw.shapes.Line;
 public class thisGame extends Game 
 {
 	BufferedImage player;
-
+	WorldCreator creator;
 	Player me;
 	ClassLoader cldr ;	
 	public thisGame()
@@ -38,7 +38,7 @@ public class thisGame extends Game
 	{
 
 		
-		WorldCreator creator = new WorldCreator(world);
+		creator = new WorldCreator(world);
 		creator.createWorld();
 		//Shape square = new Rectangle2D.Float(100.0f, 100.0f, 100.0f, 100.0f);
 		//Body rectangle = new Body("Player 1", new Box(50f, 50f), 0.25f);
@@ -79,6 +79,7 @@ public class thisGame extends Game
 	{
 		super.draw(g);
 		g.drawImage(player,(int) (me.getX() - me.getWidth() / 2),(int) (me.getY() - me.getHeight() / 2),(int) me.getWidth(), (int) me.getHeight(),null);
+		creator.drawWorld(g);
 		
 	}
 
