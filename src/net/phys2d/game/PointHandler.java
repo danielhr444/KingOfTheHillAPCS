@@ -5,6 +5,11 @@ public class PointHandler extends TimerTask
 {
 	private int points;
 	
+	public PointHandler()
+	{
+		points = 0;
+	}
+	
 	public int getPoints()
 	{
 		return points;

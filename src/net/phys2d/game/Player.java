@@ -14,7 +14,8 @@ public class Player extends Body
 	private boolean movingLeft;
 	private boolean movingRight;
 	private boolean isUp = false;
-	int points;
+	private int points;
+	private PointHandler pointHandler;
 	
 	public Player(DynamicShape shape, float m, String myName) 
 	{
@@ -22,8 +23,10 @@ public class Player extends Body
 		setDamping(0);
 
 		Timer timer = new Timer();
-		TimerTask pointHandler = new PointHandler();
+		pointHandler = new PointHandler();
 		timer.scheduleAtFixedRate(pointHandler, 1000, 1000);
+		
+		setMaxVelocity(75.0f, 5000.0f);
 
 		// TODO Auto-generated constructor stub
 	}
@@ -92,7 +95,7 @@ public class Player extends Body
 
 	public void moveLeft()
 	{
-		setMaxVelocity(75.0f, 5000.0f);
+		//setMaxVelocity(75.0f, 5000.0f);
 		//adjustVelocity(new Vector2f(-75, 0));
 		setVelocity(new Vector2f(-75, this.getVelocity().getY()));
 	}
@@ -100,7 +103,7 @@ public class Player extends Body
 	public void moveRight()
 	{
 
-		setMaxVelocity(75.0f, 5000.0f);
+		//setMaxVelocity(75.0f, 5000.0f);
 		//adjustVelocity(new Vector2f(75, 0));
 		setVelocity(new Vector2f(75f,this.getVelocity().getY()));
 	}
@@ -112,7 +115,7 @@ public class Player extends Body
 		//if (!isUp())
 		{
 			
-			setMaxVelocity(75.0f, 5000.0f);
+			//setMaxVelocity(75.0f, 5000.0f);
 			setVelocity(new Vector2f(this.getVelocity().getX(), -75));
 			this.clearTouching();
 		}
@@ -134,12 +137,9 @@ public class Player extends Body
 		//System.out.println("isrunning");
 		//System.out.print(this.getTouching());
 		//this.startFrame();
-		if (isUp())
-		{
-			//this.clearTouching();
-		}
-		
-		
+		super.update();
+		points = pointHandler.getPoints();
+		System.out.println(points);
 	}
 
 
