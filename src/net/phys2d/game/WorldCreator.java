@@ -80,6 +80,7 @@ public class WorldCreator
 
 	public void drawWorld(Graphics2D g)
 	{
+		int j = 0; 
 		for (int i = 0; i < myWorld.getBodies().size(); i++)
 		{
 			Body currentBod = myWorld.getBodies().get(i);
@@ -92,10 +93,13 @@ public class WorldCreator
 			}
 
 			if (currentBod.getName().equals("GrassBlock"))
-			{
-				g.drawImage(grassBlock, (int)currentBod.getPosition().getX() - 12, (int)(currentBod.getPosition().getY() - 12.5), 31, 30, null);
-				g.drawImage(grassBlock, (int)currentBod.getPosition().getX() + 17, (int)(currentBod.getPosition().getY() - 12.5), 31, 30, null);
-				
+			{ 
+				j++;
+				g.drawImage(grassBlock, (int)currentBod.getPosition().getX() - 15, (int)(currentBod.getPosition().getY() - 12.5), 31, 30, null);
+				if (j < 5)
+				{
+					g.drawImage(grassBlock, (int)currentBod.getPosition().getX() + 16, (int)(currentBod.getPosition().getY() - 12.5), 31, 30, null);
+				}
 			}
 		}
 	}
