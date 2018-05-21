@@ -18,7 +18,8 @@ public class thisGame extends Game
 {
 	BufferedImage player;
 	WorldCreator creator;
-	Player me;
+	Player player1;
+	Player player2;
 	ClassLoader cldr ;	
 	public thisGame()
 	{
@@ -47,13 +48,21 @@ public class thisGame extends Game
 		//rectangle.setPosition(250.0f, 100.0f);// TODO Auto-generated method stub
 		//world.add(rectangle);
 
-		me  = new Player(new Box(50f, 50f), 0.2f, "Player 1");
-		me.setPosition(250.0f, 100.0f);
-		me.setRotatable(false);
-		me.setMass(20f);
-		me.setFriction(0f);
+		player1  = new Player(new Box(50f, 50f), 0.2f, "Player 1");
+		player1.setPosition(250.0f, 100.0f);
+		player1.setRotatable(false);
+		player1.setMass(20f);
+		player1.setFriction(0f);
+		
+		player2  = new Player(new Box(50f, 50f), 0.2f, "Player 2");
+		player2.setPosition(150.0f, 100.0f);
+		player2.setRotatable(false);
+		player2.setMass(20f);
+		player2.setFriction(0f);
+		
 		world.setGravity(0, 45f);
-		world.add(me);
+		world.add(player1);
+		world.add(player2);
 
 	}
 
@@ -78,7 +87,7 @@ public class thisGame extends Game
 	protected void draw(Graphics2D g)
 	{
 		super.draw(g);
-		g.drawImage(player,(int) (me.getX() - me.getWidth() / 2),(int) (me.getY() - me.getHeight() / 2),(int) me.getWidth(), (int) me.getHeight(),null);
+		g.drawImage(player,(int) (player1.getX() - player1.getWidth() / 2),(int) (player1.getY() - player1.getHeight() / 2),(int) player1.getWidth(), (int) player1.getHeight(),null);
 		creator.drawWorld(g);
 		
 	}
