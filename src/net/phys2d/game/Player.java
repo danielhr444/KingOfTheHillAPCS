@@ -138,7 +138,7 @@ public class Player extends Body
 		//this.startFrame();
 		super.update();
 		points = pointHandler.getPoints();
-		System.out.println(points);
+	//	System.out.println(points);
 	}
 
 
