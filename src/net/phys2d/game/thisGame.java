@@ -77,9 +77,10 @@ public class thisGame extends Game
 	
 	protected void draw(Graphics2D g)
 	{
-		super.draw(g);
+		
 		g.drawImage(player,(int) (me.getX() - me.getWidth() / 2),(int) (me.getY() - me.getHeight() / 2),(int) me.getWidth(), (int) me.getHeight(),null);
 		creator.drawWorld(g);
+		super.draw(g);
 		
 	}
 

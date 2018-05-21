@@ -60,7 +60,8 @@ public class Player extends Body
 		for (int i = 0; i < list.size(); i++)
 		{
 
-			if (list.get(i).getName().equals("Floor") || list.get(i).getName().equals("FloorBlock"))
+			String name = list.get(i).getName();
+			if (name.equals("Floor") || name.equals("FloorBlock") || name.equals("GrassBlock"))
 			{
 				System.out.println(list);
 				return false;
