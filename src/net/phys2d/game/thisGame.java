@@ -17,6 +17,7 @@ import net.phys2d.raw.shapes.Line;
 public class thisGame extends Game 
 {
 	BufferedImage player;
+	BufferedImage bg;
 	WorldCreator creator;
 	Player player1;
 	Player player2;
@@ -27,6 +28,13 @@ public class thisGame extends Game
 		cldr = getClass().getClassLoader();
 		try {
 			player = ImageIO.read(new File("src/Images/boxx.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			bg = ImageIO.read(new File("src/Images/BackgroundImage2.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,6 +98,8 @@ public class thisGame extends Game
 	{
 
 		//super.draw(g);
+		g.drawImage(bg, 0, -75, 800, 500, null);
+		
 		g.drawImage(player,(int) (player1.getX() - player1.getWidth() / 2),(int) (player1.getY() - player1.getHeight() / 2),(int) player1.getWidth(), (int) player1.getHeight(),null);
 		g.drawImage(player,(int) (player2.getX() - player2.getWidth() / 2),(int) (player2.getY() - player2.getHeight() / 2),(int) player2.getWidth(), (int) player2.getHeight(),null);
 		
