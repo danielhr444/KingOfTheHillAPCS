@@ -129,6 +129,11 @@ public strictfp class Body {
 		this("UnnamedBody",(Shape) shape,m);
 	}
 	
+	
+	public void setName(String newName)
+	{
+		name = newName;
+	}
 	/**
 	 * Check if this body is disabled
 	 * 

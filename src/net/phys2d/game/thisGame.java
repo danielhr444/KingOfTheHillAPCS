@@ -73,11 +73,13 @@ public class thisGame extends Game
 
 	}
 
-	public void update() {
-		
+	public void update() 
+	{
+	
 		for (int i = 0; i < this.world.getBodies().size(); i++)
 		{
-			this.world.getBodies().get(i).update();
+			Body currentBod = this.world.getBodies().get(i);
+			currentBod.update();
 		}
 		
 		// TODO Auto-generated method stub
@@ -87,7 +89,7 @@ public class thisGame extends Game
 	protected void draw(Graphics2D g)
 	{
 
-		super.draw(g);
+		//super.draw(g);
 		g.drawImage(player,(int) (player1.getX() - player1.getWidth() / 2),(int) (player1.getY() - player1.getHeight() / 2),(int) player1.getWidth(), (int) player1.getHeight(),null);
 
 		creator.drawWorld(g);
