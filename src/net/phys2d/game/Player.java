@@ -138,7 +138,22 @@ public class Player extends Body
 		//this.startFrame();
 		super.update();
 		points = pointHandler.getPoints();
-		this.punch();
+		//this.punch();
+		BodyList touching = this.getTouching();
+		for(int i = 0; i < touching.size(); i++)
+		{
+			if(touching.get(i) instanceof Player)
+			{
+				Player temp = (Player) touching.get(i);
+				
+				if(Math.abs(temp.getForce().getX()) > Math.abs(this.getForce().getX()) )
+					this.adjustVelocity(new Vector2f(2 * temp.getForce().getX(), temp.getForce().getY()));
+				else if(Math.abs(temp.getForce().getX()) < Math.abs(this.getForce().getX()) )
+					temp.adjustVelocity(new Vector2f(2 * this.getForce().getX(), this.getForce().getY()));
+				this.clearTouching();
+				System.out.println("help");
+			}
+		}
 	//	System.out.println(points);
 	}
 	
