@@ -1,5 +1,6 @@
 package net.phys2d.game;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Shape;
@@ -24,7 +25,7 @@ public class thisGame extends Game
 	ClassLoader cldr ;	
 	public thisGame()
 	{
-		super("test");
+		super("King of the Hill");
 		cldr = getClass().getClassLoader();
 		try {
 			player = ImageIO.read(new File("src/Images/boxx.png"));
@@ -89,7 +90,16 @@ public class thisGame extends Game
 			Body currentBod = this.world.getBodies().get(i);
 			currentBod.update();
 		}
-		
+		if (player1.topOfHill() && player2.topOfHill())
+		{
+			player1.setContested(true);
+			player2.setContested(true);
+		}
+		else
+		{
+			player1.setContested(false);
+			player2.setContested(false);
+		}
 		// TODO Auto-generated method stub
 
 	}
@@ -103,9 +113,29 @@ public class thisGame extends Game
 		g.drawImage(player,(int) (player1.getX() - player1.getWidth() / 2),(int) (player1.getY() - player1.getHeight() / 2),(int) player1.getWidth(), (int) player1.getHeight(),null);
 		g.drawImage(player,(int) (player2.getX() - player2.getWidth() / 2),(int) (player2.getY() - player2.getHeight() / 2),(int) player2.getWidth(), (int) player2.getHeight(),null);
 		
+		
 		creator.drawWorld(g);
 		
+		g.setColor(Color.BLACK);
 		
+		g.drawString("Player 1", player1.getX() - 21, player1.getY() - 30);
+		g.drawString("Player 2", player2.getX() - 21, player2.getY() - 30);
+		
+		g.drawString("Player 1 Points: " + player1.getPoints(), 25, 100);
+		g.drawString("Player 2 Points: " + player2.getPoints(), 675, 100);
+		
+		if (player1.getContested() && player2.getContested())
+		{
+			g.drawString("Hill contested!", 350, 100);
+		}
+		else if (player1.topOfHill())
+		{
+			g.drawString("Player 1 in control!", 350, 100);
+		}
+		else if (player2.topOfHill())
+		{
+			g.drawString("Player 2 in control!", 350, 100);
+		}
 	}
 
 	public void run() {

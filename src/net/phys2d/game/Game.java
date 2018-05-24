@@ -1,7 +1,6 @@
 package net.phys2d.game;
 
 import java.awt.Color;
-import java.awt.Frame;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
@@ -9,7 +8,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import net.phys2d.math.MathUtil;
@@ -65,7 +68,8 @@ public abstract class Game implements Runnable{
 	 * 
 	 * @param title The title of the demo
 	 */
-	public Game(String title) {
+	public Game(String title) 
+	{
 		this.title = title;
 	}
 	
@@ -97,7 +101,16 @@ public abstract class Game implements Runnable{
 	 * Initialise the GUI 
 	 */
 	private void initGUI() {
+		BufferedImage icon = null;
+		try {
+			icon = ImageIO.read(new File("src/Images/BackgroundImage2.png"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		frame = new JFrame(title);
+		frame.setIconImage(icon);
 		frame.setResizable(false);
 		frame.setIgnoreRepaint(true);
 		frame.setSize(800,500);

@@ -15,6 +15,7 @@ public class Player extends Body
 	private boolean movingRight;
 	private boolean isUp = false;
 	private int points;
+	private boolean contested;
 	private pointCounter pointHandler;
 	
 	public Player(DynamicShape shape, float m, String myName) 
@@ -24,8 +25,10 @@ public class Player extends Body
 
 		Timer timer = new Timer();
 		pointHandler = new pointCounter();
+	
 		timer.scheduleAtFixedRate(pointHandler, 1000, 1000);
 		setMaxVelocity(75.0f, 5000.0f);
+		contested = false;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -128,8 +131,28 @@ public class Player extends Body
 		this.setVelocity(new Vector2f(0,this.getVelocity().getY()));
 
 	}
+	
+	public int getPoints()
+	{
+		return points;
+	}
+	
+	public boolean topOfHill()
+	{
+		System.out.println(this.getClass().getName() + this.getX() + " " +  this.getY());
+		return (this.getX() > 315 && this.getX() < 410 && this.getY() < 220);
+	}
 
-
+	public void setContested(boolean isContested)
+	{
+		contested = isContested;
+	}
+	
+	public boolean getContested()
+	{
+		return contested;
+	}
+	
 	public void update()
 	{
 		
@@ -137,7 +160,16 @@ public class Player extends Body
 		//System.out.print(this.getTouching());
 		//this.startFrame();
 		super.update();
+		if (this.topOfHill() && !this.getContested())
+		{
+			pointHandler.setOnHill(true);
+		}
+		else
+		{
+			pointHandler.setOnHill(false);
+		}
 		points = pointHandler.getPoints();
+		
 		//this.punch();
 		BodyList touching = this.getTouching();
 		for(int i = 0; i < touching.size(); i++)
