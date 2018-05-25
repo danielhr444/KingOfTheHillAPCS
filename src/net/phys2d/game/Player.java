@@ -66,7 +66,6 @@ public class Player extends Body
 			String name = list.get(i).getName();
 			if (name.equals("Floor") || name.equals("FloorBlock") || name.equals("GrassBlock"))
 			{
-				System.out.println(list);
 				return false;
 			}
 		}
@@ -139,7 +138,7 @@ public class Player extends Body
 	
 	public boolean topOfHill()
 	{
-		System.out.println(this.getClass().getName() + this.getX() + " " +  this.getY());
+		//System.out.println(this.getClass().getName() + this.getX() + " " +  this.getY());
 		return (this.getX() > 315 && this.getX() < 410 && this.getY() < 220);
 	}
 
@@ -171,6 +170,7 @@ public class Player extends Body
 		points = pointHandler.getPoints();
 		
 		//this.punch();
+		/*
 		BodyList touching = this.getTouching();
 		for(int i = 0; i < touching.size(); i++)
 		{
@@ -178,14 +178,19 @@ public class Player extends Body
 			{
 				Player temp = (Player) touching.get(i);
 				
-				if(Math.abs(temp.getForce().getX()) > Math.abs(this.getForce().getX()) )
-					this.adjustVelocity(new Vector2f(2 * temp.getForce().getX(), temp.getForce().getY()));
-				else if(Math.abs(temp.getForce().getX()) < Math.abs(this.getForce().getX()) )
-					temp.adjustVelocity(new Vector2f(2 * this.getForce().getX(), this.getForce().getY()));
+				System.out.println(temp.getVelocity().getX() + " " + temp.getVelocity().getY());
+				
+				if((temp.getVelocity().getX()) > (this.getVelocity().getX()) )
+					this.setVelocity(new Vector2f(10 * temp.getVelocity().getX(), temp.getVelocity().getY()));
+				else if(temp.getVelocity().getX() < this.getVelocity().getX()) 
+					temp.setVelocity(new Vector2f(10 * this.getVelocity().getX(), this.getVelocity().getY()));
 				this.clearTouching();
-				System.out.println("help");
+				//System.out.println("help");
+				return;
 			}
+			//System.out.println("hi there");
 		}
+		*/
 	//	System.out.println(points);
 	}
 	

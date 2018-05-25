@@ -23,6 +23,8 @@ public class thisGame extends Game
 	Player player1;
 	Player player2;
 	ClassLoader cldr ;	
+	ColissionHandler colHandler;
+	
 	public thisGame()
 	{
 		super("King of the Hill");
@@ -41,7 +43,7 @@ public class thisGame extends Game
 			e.printStackTrace();
 		}
 		
-
+		
 	}
 
 	protected void init(World world) 
@@ -58,13 +60,13 @@ public class thisGame extends Game
 		//world.add(rectangle);
 
 		player1  = new Player(new Box(50f, 50f), 0.2f, "Player 1");
-		player1.setPosition(250.0f, 100.0f);
+		player1.setPosition(50.0f, 100.0f);
 		player1.setRotatable(false);
 		player1.setMass(20f);
 		player1.setFriction(0f);
 		
 		player2  = new Player(new Box(50f, 50f), 0.2f, "Player 2");
-		player2.setPosition(150.0f, 100.0f);
+		player2.setPosition(750.0f, 100.0f);
 		player2.setRotatable(false);
 		player2.setMass(20f);
 		player2.setFriction(0f);
@@ -72,6 +74,8 @@ public class thisGame extends Game
 		world.setGravity(0, 45f);
 		world.add(player1);
 		world.add(player2);
+		
+		colHandler = new ColissionHandler(player1, player2);
 
 	}
 
@@ -100,6 +104,8 @@ public class thisGame extends Game
 			player1.setContested(false);
 			player2.setContested(false);
 		}
+		
+		colHandler.collide();
 		// TODO Auto-generated method stub
 
 	}
