@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import net.phys2d.raw.Body;
 import net.phys2d.raw.World;
@@ -107,6 +109,20 @@ public class thisGame extends Game
 			player1.setContested(false);
 			player2.setContested(false);
 		}
+		
+		if (player1.getPoints() > 20)
+		{
+			//g.drawString("Player 1 wins!", 350, 100);
+			JOptionPane.showMessageDialog(new JFrame(),  "Player 1", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
+			System.exit(0);
+		}
+		else if (player2.getPoints() > 20)
+		{
+			//g.drawString("Player 2 wins!", 350, 100);
+			JOptionPane.showMessageDialog(new JFrame(),  "Player 2", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
+			System.exit(0);
+		}
+		
 
 		colHandler.collide(player1, player2);
 		//System.out.println("Has Collided: " + colHandler.hasCollided());
@@ -136,15 +152,11 @@ public class thisGame extends Game
 		g.drawString("Player 1 Points: " + player1.getPoints(), 25, 100);
 		g.drawString("Player 2 Points: " + player2.getPoints(), 675, 100);
 
-		if (player1.getPoints() > 20)
-		{
-			g.drawString("Player 1 wins!", 350, 100);
-		}
-		else if (player2.getPoints() > 20)
-		{
-			g.drawString("Player 2 wins!", 350, 100);
-		}
-		else if (player1.getContested() && player2.getContested())
+		
+		
+		g.fillRect(100, 100, 200, 100);
+		
+		if (player1.getContested() && player2.getContested())
 		{
 			g.drawString("Hill contested!", 350, 100);
 		}
@@ -156,8 +168,6 @@ public class thisGame extends Game
 		{
 			g.drawString("Player 2 in control!", 350, 100);
 		}
-		
-		g.fillRect(100, 100, 200, 100);
 	}
 
 	public void run() {
