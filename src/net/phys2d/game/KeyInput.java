@@ -10,10 +10,13 @@ import net.phys2d.raw.BodyList;
 public class KeyInput extends KeyAdapter
 {
 	private BodyList myHandler;
+	private Player player1, player2;
 
-	public KeyInput(BodyList handler)
+	public KeyInput(BodyList handler, Player p1, Player p2)
 	{
 		myHandler = handler;
+		player1 = p1;
+		player2 = p2;
 	}
 
 	public void keyPressed(KeyEvent e)
@@ -25,115 +28,91 @@ public class KeyInput extends KeyAdapter
 			System.exit(1);
 		}
 
-		for(int i = 0; i < myHandler.size(); i++)
+
+		switch (key)
 		{
-			Body thisObj = myHandler.get(i);
-			//thisObj.setMaxVelocity(75, 10000);
-			if (thisObj.getName().equals("Player 1") && thisObj instanceof Player)
+		case KeyEvent.VK_W:
+
+			if(!player1.isUp())
 			{
-				Player thisPlayer = (Player)thisObj;
-
-				switch (key)
-				{
-				case KeyEvent.VK_W:
-					if(!thisPlayer.isUp())
-					{
-					thisPlayer.jump();
-					//thisPlayer.clearTouching();
-					}
-					break;
-				
-				case KeyEvent.VK_A:
-
-					thisPlayer.moveLeft();//set vel to -5
-					thisPlayer.setMovingLeft(true);
-					break;
-
-				case KeyEvent.VK_D:
-					thisPlayer.moveRight();
-					thisPlayer.setMovingRight(true);
-					break;
-				}
+				player1.jump();
+				//thisPlayer.clearTouching();
 			}
-			if (thisObj.getName().equals("Player 2") && thisObj instanceof Player)
+			break;
+
+		case KeyEvent.VK_A:
+
+			player1.moveLeft();//set vel to -5
+			player1.setMovingLeft(true);
+			break;
+
+		case KeyEvent.VK_D:
+			player1.moveRight();
+			player1.setMovingRight(true);
+			break;
+
+
+
+		case KeyEvent.VK_UP:
+			if(!player2.isUp())
 			{
-				Player thisPlayer = (Player)thisObj;
+				player2.jump();
+				//thisPlayer.clearTouching();
+			}
+			break;
 
-				switch (key)
-				{
-				case KeyEvent.VK_UP:
-					if(!thisPlayer.isUp())
-					{
-					thisPlayer.jump();
-					//thisPlayer.clearTouching();
-					}
-					break;
-				
-				case KeyEvent.VK_LEFT:
+		case KeyEvent.VK_LEFT:
 
-					thisPlayer.moveLeft();//set vel to -5
-					thisPlayer.setMovingLeft(true);
-					break;
+			player2.moveLeft();//set vel to -5
+			player2.setMovingLeft(true);
+			break;
 
-				case KeyEvent.VK_RIGHT:
-					thisPlayer.moveRight();
-					thisPlayer.setMovingRight(true);
-					break;
-				}
-			}	
+		case KeyEvent.VK_RIGHT:
+			player2.moveRight();
+			player2.setMovingRight(true);
+			break;
+
 		}	
-	}
-	
+	}	
+
+
 	public void keyReleased(KeyEvent e)
 	{
 		int key = e.getKeyCode();
 
-		for(int i = 0; i < myHandler.size(); i++)
+
+		switch (key)
 		{
-			Body thisObj = myHandler.get(i);
-			if (thisObj.getName().equals("Player 1") && thisObj instanceof Player)
-			{
-				Player thisPlayer = (Player)thisObj;
-				switch (key)
-				{
-				case KeyEvent.VK_D:
-					thisPlayer.setMovingRight(false);
-					break;
+		case KeyEvent.VK_D:
+			player1.setMovingRight(false);
+			break;
 
-				case KeyEvent.VK_A:
-					thisPlayer.setMovingLeft(false);
-					break;
+		case KeyEvent.VK_A:
+			player1.setMovingLeft(false);
+			break;
 
-				}
+		
+		case KeyEvent.VK_RIGHT:
+			player2.setMovingRight(false);
+			break;
 
-				if (!thisPlayer.isMovingLeft() && !thisPlayer.isMovingRight())
-				{
-					thisPlayer.stop();
-				}
-
-			}
-			if (thisObj.getName().equals("Player 2") && thisObj instanceof Player)
-			{
-				Player thisPlayer = (Player)thisObj;
-				switch (key)
-				{
-				case KeyEvent.VK_RIGHT:
-					thisPlayer.setMovingRight(false);
-					break;
-
-				case KeyEvent.VK_LEFT:
-					thisPlayer.setMovingLeft(false);
-					break;
-
-				}
-
-				if (!thisPlayer.isMovingLeft() && !thisPlayer.isMovingRight())
-				{
-					thisPlayer.stop();
-				}
-
-			}
+		case KeyEvent.VK_LEFT:
+			player2.setMovingLeft(false);
+			break;
 
 		}
+		if (!player2.isMovingLeft() && !player2.isMovingRight())
+		{
+			player2.stop();
+		}
+
+		if (!player1.isMovingLeft() && !player1.isMovingRight())
+		{
+			player1.stop();
+		}
 	}
+	
+
 }
+
+

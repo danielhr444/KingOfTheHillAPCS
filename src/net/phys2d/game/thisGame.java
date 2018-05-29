@@ -24,10 +24,12 @@ public class thisGame extends Game
 	Player player2;
 	ClassLoader cldr ;	
 	ColissionHandler colHandler;
-	
+	boolean worldDrawn = false;
+
 	public thisGame()
 	{
 		super("King of the Hill");
+		
 		cldr = getClass().getClassLoader();
 		try {
 			player = ImageIO.read(new File("src/Images/boxx.png"));
@@ -35,21 +37,21 @@ public class thisGame extends Game
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		try {
 			bg = ImageIO.read(new File("src/Images/BackgroundImage2.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 	}
 
 	protected void init(World world) 
 	{
 
-		
+
 		creator = new WorldCreator(world);
 		creator.createWorld();
 		//Shape square = new Rectangle2D.Float(100.0f, 100.0f, 100.0f, 100.0f);
@@ -64,18 +66,18 @@ public class thisGame extends Game
 		player1.setRotatable(false);
 		player1.setMass(20f);
 		player1.setFriction(0f);
-		
+
 		player2  = new Player(new Box(50f, 50f), 0.2f, "Player 2");
 		player2.setPosition(750.0f, 100.0f);
 		player2.setRotatable(false);
 		player2.setMass(20f);
 		player2.setFriction(0f);
-		
+
 		world.setGravity(0, 45f);
 		world.add(player1);
 		world.add(player2);
-		
-		colHandler = new ColissionHandler(player1, player2);
+		super.frame.addKeyListener(new KeyInput(world.getBodies(), player1, player2));
+		colHandler = new ColissionHandler();
 
 	}
 
@@ -88,7 +90,7 @@ public class thisGame extends Game
 
 	public void update() 
 	{
-	
+
 		for (int i = 0; i < this.world.getBodies().size(); i++)
 		{
 			Body currentBod = this.world.getBodies().get(i);
@@ -104,33 +106,44 @@ public class thisGame extends Game
 			player1.setContested(false);
 			player2.setContested(false);
 		}
-		
-		colHandler.collide();
+
+		colHandler.collide(player1, player2);
+		//System.out.println("Has Collided: " + colHandler.hasCollided());
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	protected void draw(Graphics2D g)
 	{
 
 		//super.draw(g);
+
 		g.drawImage(bg, 0, -75, 800, 500, null);
-		
+
 		g.drawImage(player,(int) (player1.getX() - player1.getWidth() / 2),(int) (player1.getY() - player1.getHeight() / 2),(int) player1.getWidth(), (int) player1.getHeight(),null);
 		g.drawImage(player,(int) (player2.getX() - player2.getWidth() / 2),(int) (player2.getY() - player2.getHeight() / 2),(int) player2.getWidth(), (int) player2.getHeight(),null);
-		
-		
+		//g.fillRect((int)player1.getPositionDelta().getX(),(int)player1.getPositionDelta().getY() , 50, 50);
+
 		creator.drawWorld(g);
-		
+
+
 		g.setColor(Color.BLACK);
-		
+
 		g.drawString("Player 1", player1.getX() - 21, player1.getY() - 30);
 		g.drawString("Player 2", player2.getX() - 21, player2.getY() - 30);
-		
+
 		g.drawString("Player 1 Points: " + player1.getPoints(), 25, 100);
 		g.drawString("Player 2 Points: " + player2.getPoints(), 675, 100);
-		
-		if (player1.getContested() && player2.getContested())
+
+		if (player1.getPoints() > 20)
+		{
+			g.drawString("Player 1 wins!", 350, 100);
+		}
+		else if (player2.getPoints() > 20)
+		{
+			g.drawString("Player 2 wins!", 350, 100);
+		}
+		else if (player1.getContested() && player2.getContested())
 		{
 			g.drawString("Hill contested!", 350, 100);
 		}
@@ -142,6 +155,7 @@ public class thisGame extends Game
 		{
 			g.drawString("Player 2 in control!", 350, 100);
 		}
+		
 	}
 
 	public void run() {

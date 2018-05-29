@@ -140,8 +140,8 @@ public abstract class Game implements Runnable{
 		});
 		
 		frame.setVisible(true);
-		frame.createBufferStrategy(2);
-		frame.addKeyListener(new KeyInput(world.getBodies()));
+		frame.createBufferStrategy(3);
+		//frame.addKeyListener(new KeyInput(world.getBodies()));
 		System.out.println("added key listener");
 		strategy = frame.getBufferStrategy();
 		
@@ -231,7 +231,7 @@ public abstract class Game implements Runnable{
 	 */
 	protected void renderGUI(Graphics2D g) {
 		g.setColor(Color.black);
-		g.drawString("R - Restart Demo",15,430);
+		//g.drawString("R - Restart Demo",15,430);
 	}
 	
 	/**

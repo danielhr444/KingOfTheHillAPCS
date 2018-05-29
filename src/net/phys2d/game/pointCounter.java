@@ -17,7 +17,7 @@ public class pointCounter extends TimerTask
 	}
 
 	public int getPoints()
-	{
+	{	
 		return points;
 	}
 

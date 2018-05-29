@@ -1,51 +1,89 @@
 package net.phys2d.game;
 
+import net.phys2d.math.ROVector2f;
 import net.phys2d.math.Vector2f;
-import net.phys2d.raw.Body;
 import net.phys2d.raw.BodyList;
 
+/**
+ * @author 
+ */
 public class ColissionHandler 
 {
-	private Player player1;
-	private Player player2;
+
+	/**
+	 * boolean for checking if two players have collided
+	 */
 	private boolean collided;
-	
-	
-	public ColissionHandler(Player p1, Player p2)
-	{
-		player1 = p1;
-		player2 = p2;
+
+
+	/**
+	 * initalize collision handler
+	 */
+	public ColissionHandler()
+	{	
 		collided = false;
 	}
-	
+
 	public boolean hasCollided()
 	{
 		return collided;
 	}
-	
-	public void collide()
+
+
+	/**
+	 * @param player1 the first player
+	 * @param player2 the second player
+	 * Checks if the two players have collided
+	 */
+	public void collide(Player player1, Player player2)
 	{
 		BodyList player1List = player1.getTouching();
 		BodyList player2List = player2.getTouching();
+		//System.out.println(player1.getVelocity().getX());
+		//System.out.println(player2.getVelocity().getX());
+
+		//System.out.println("Player 1 is touching player 2: " + player1List.contains(player2));
+
+		//System.out.println("Player 2 is touching player 1: " + player2List.contains(player1));
 		
-		for (int i = 0; i < player1List.size(); i++)
+		if (player1List.contains(player2) && player2List.contains(player1))
 		{
-			Body thisBod = player1List.get(i);
-			if (thisBod instanceof Player)
+			collided = true;
+			if (Math.abs(player1.getVelocity().getX()) > Math.abs(player2.getVelocity().getX()))
 			{
-				Player thisPlayer = (Player)thisBod;
-				if (thisPlayer.equals(player1))
-				{
-					player2.adjustVelocity(new Vector2f(-player1.getVelocity().getX(), player2.getVelocity().getY()));
-					System.out.println("player 1 collided");
-				}
-				else if (thisPlayer.equals(player2))
-				{
-					player1.adjustVelocity(new Vector2f(-player2.getVelocity().getX(), player1.getVelocity().getY()));
-					System.out.println("player 2 collided");
-				}
 				
+				player2.adjustVelocity(new Vector2f(-5 * player1.getVelocity().getX(), 10));
+				player2.setDamping(0.1f);
+				//ROVector2f currentForce = player1.getForce();
+				//System.out.println(currentForce.getX() + " " + currentForce.getY());
+				//player2.setForce(0, 0);
+				//player2.addForce(new Vector2f(-5, currentForce.getY()));
+				
+				
+				//player2.adjustVelocity(new Vector2f(2 * player1.getVelocity().getX(), player2.getVelocity().getY()));
 			}
+			else
+			{
+				
+				//player1.adjustVelocity(new Vector2f(2 * player2.getVelocity().getX(), player1.getVelocity().getY()));
+				player1.adjustVelocity(new Vector2f(-5* player2.getVelocity().getX(), 10));
+				player1.setDamping(0.1f);
+				//ROVector2f currentForce = player2.getForce();
+
+				//System.out.println(currentForce.getX() + " " + currentForce.getY());
+				//player1.setForce(0, 0);
+				//player1.addForce(new Vector2f(-500, currentForce.getY()));
+			}
+			player1.clearTouching();
+			player2.clearTouching();
+			
 		}
+		else
+		{
+			collided = false;
+		}
+		
+		
+		
 	}
 }

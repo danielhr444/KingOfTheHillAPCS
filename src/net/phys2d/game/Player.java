@@ -18,40 +18,61 @@ public class Player extends Body
 	private boolean contested;
 	private pointCounter pointHandler;
 	
-	public Player(DynamicShape shape, float m, String myName) 
+	/**
+	 * @param shape
+	 * @param mass
+	 * @param myName
+	 */
+	public Player(DynamicShape shape, float mass, String myName) 
 	{
-		super(myName, shape, m);
+		super(myName, shape, mass);
 		setDamping(0);
 
 		Timer timer = new Timer();
 		pointHandler = new pointCounter();
 	
 		timer.scheduleAtFixedRate(pointHandler, 1000, 1000);
-		setMaxVelocity(75.0f, 5000.0f);
+		setMaxVelocity(75.0f, 75.0f);
 		contested = false;
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	/**
+	 * @return current X position
+	 */
 	public float getX()
 	{
 		return (this.getPosition().getX() + 1.35f);
 	}
 	
+	/**
+	 * @return player height
+	 */
 	public float getHeight()
 	{
 		return (this.getShape().getBounds().getHeight() - 19);
 	}
 	
+	/**
+	 * @return player width
+	 */
 	public float getWidth()
 	{
 		return (this.getShape().getBounds().getWidth() - 19);
 	}
 
+	/**
+	 * @return current Y position
+	 */
 	public float getY()
 	{
 		return (this.getPosition().getY());
 	}
 
+	/**
+	 * @return if the player is off the ground
+	 */
 	public boolean isUp() 
 	{
 		//this.setCanRest(true);
@@ -75,25 +96,40 @@ public class Player extends Body
 	}
 
 
+	/**
+	 * @return if the player is moving left
+	 */
 	public boolean isMovingLeft() {
 		return movingLeft;
 	}
 
 
+	/**
+	 * @param movingLeft- set if player is moving left
+	 */
 	public void setMovingLeft(boolean movingLeft) {
 		this.movingLeft = movingLeft;
 	}
 
 
+	/**
+	 * @return if the player is moving right
+	 */
 	public boolean isMovingRight() {
 		return movingRight;
 	}
 
 
+	/**
+	 * @param movingRight- set if player is moving right
+	 */
 	public void setMovingRight(boolean movingRight) {
 		this.movingRight = movingRight;
 	}
 
+	/**
+	 *  makes player move left
+	 */
 	public void moveLeft()
 	{
 		//setMaxVelocity(75.0f, 5000.0f);
@@ -101,6 +137,9 @@ public class Player extends Body
 		setVelocity(new Vector2f(-75, this.getVelocity().getY()));
 	}
 
+	/**
+	 * makes player move right
+	 */
 	public void moveRight()
 	{
 
@@ -110,6 +149,9 @@ public class Player extends Body
 	}
 
 
+	/**
+	 * makes player jump
+	 */
 	public void jump()
 	{
 		
@@ -125,39 +167,54 @@ public class Player extends Body
 	}
 
 
+	/**
+	 * makes player stop moving
+	 */
 	public void stop()
 	{
 		this.setVelocity(new Vector2f(0,this.getVelocity().getY()));
 
 	}
 	
+	/**
+	 * @return number of points player has
+	 */
 	public int getPoints()
 	{
 		return points;
 	}
 	
+	/**
+	 * @return if the player is at the top of the hill
+	 */
 	public boolean topOfHill()
 	{
 		//System.out.println(this.getClass().getName() + this.getX() + " " +  this.getY());
 		return (this.getX() > 315 && this.getX() < 410 && this.getY() < 220);
 	}
 
+	/**
+	 * @param isContested- set if hill is contested
+	 */
 	public void setContested(boolean isContested)
 	{
 		contested = isContested;
 	}
 	
+	/**
+	 * @return contested
+	 */
 	public boolean getContested()
 	{
 		return contested;
 	}
 	
+	/* (non-Javadoc)
+	 * @see net.phys2d.raw.Body#update()
+	 */
 	public void update()
 	{
 		
-		//System.out.println("isrunning");
-		//System.out.print(this.getTouching());
-		//this.startFrame();
 		super.update();
 		if (this.topOfHill() && !this.getContested())
 		{
@@ -169,31 +226,12 @@ public class Player extends Body
 		}
 		points = pointHandler.getPoints();
 		
-		//this.punch();
-		/*
-		BodyList touching = this.getTouching();
-		for(int i = 0; i < touching.size(); i++)
-		{
-			if(touching.get(i) instanceof Player)
-			{
-				Player temp = (Player) touching.get(i);
-				
-				System.out.println(temp.getVelocity().getX() + " " + temp.getVelocity().getY());
-				
-				if((temp.getVelocity().getX()) > (this.getVelocity().getX()) )
-					this.setVelocity(new Vector2f(10 * temp.getVelocity().getX(), temp.getVelocity().getY()));
-				else if(temp.getVelocity().getX() < this.getVelocity().getX()) 
-					temp.setVelocity(new Vector2f(10 * this.getVelocity().getX(), this.getVelocity().getY()));
-				this.clearTouching();
-				//System.out.println("help");
-				return;
-			}
-			//System.out.println("hi there");
-		}
-		*/
-	//	System.out.println(points);
+	
 	}
 	
+	/**
+	 * work in progress- collide with other player
+	 */
 	public void punch()
 	{
 		BodyList touching = this.getTouching();
