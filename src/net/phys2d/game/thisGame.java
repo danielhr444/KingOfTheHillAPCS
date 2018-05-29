@@ -77,6 +77,7 @@ public class thisGame extends Game
 		world.add(player1);
 		world.add(player2);
 		super.frame.addKeyListener(new KeyInput(world.getBodies(), player1, player2));
+		super.frame.addMouseListener(new MouseInput());
 		colHandler = new ColissionHandler();
 
 	}
@@ -156,6 +157,7 @@ public class thisGame extends Game
 			g.drawString("Player 2 in control!", 350, 100);
 		}
 		
+		g.fillRect(100, 100, 200, 100);
 	}
 
 	public void run() {
