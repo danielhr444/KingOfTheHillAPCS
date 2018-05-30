@@ -51,9 +51,10 @@ public class ColissionHandler
 			collided = true;
 			if (Math.abs(player1.getVelocity().getX()) > Math.abs(player2.getVelocity().getX()))
 			{
-				
+				//player1.setMoveable(false);
 				player2.adjustVelocity(new Vector2f(-5 * player1.getVelocity().getX(), 10));
 				player2.setDamping(0.1f);
+				//player1.setMoveable(true);
 				//ROVector2f currentForce = player1.getForce();
 				//System.out.println(currentForce.getX() + " " + currentForce.getY());
 				//player2.setForce(0, 0);
@@ -66,8 +67,10 @@ public class ColissionHandler
 			{
 				
 				//player1.adjustVelocity(new Vector2f(2 * player2.getVelocity().getX(), player1.getVelocity().getY()));
+				//player2.setMoveable(false);
 				player1.adjustVelocity(new Vector2f(-5* player2.getVelocity().getX(), 10));
 				player1.setDamping(0.1f);
+				//player2.setMoveable(true);
 				//ROVector2f currentForce = player2.getForce();
 
 				//System.out.println(currentForce.getX() + " " + currentForce.getY());

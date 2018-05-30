@@ -17,6 +17,8 @@ public class KeyInput extends KeyAdapter
 		myHandler = handler;
 		player1 = p1;
 		player2 = p2;
+		
+		
 	}
 
 	public void keyPressed(KeyEvent e)
@@ -111,6 +113,7 @@ public class KeyInput extends KeyAdapter
 			player1.stop();
 		}
 	}
+	
 	
 
 }
