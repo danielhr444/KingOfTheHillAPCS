@@ -21,6 +21,7 @@ public class thisGame extends Game
 {
 	BufferedImage player;
 	BufferedImage bg;
+	BufferedImage hillBG;
 	WorldCreator creator;
 	Player player1;
 	Player player2;
@@ -28,10 +29,12 @@ public class thisGame extends Game
 	ColissionHandler colHandler;
 	boolean worldDrawn = false;
 
+	Object currentState = null;
+
 	public thisGame()
 	{
 		super("King of the Hill");
-		
+
 		cldr = getClass().getClassLoader();
 		try {
 			player = ImageIO.read(cldr.getResource("Images/boxx.png"));
@@ -47,7 +50,14 @@ public class thisGame extends Game
 			e.printStackTrace();
 		}
 
+		try {
+			hillBG = ImageIO.read(cldr.getResource("Images/Background3.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+		currentState = GameState.Game;
 	}
 
 	protected void init(World world) 
@@ -109,20 +119,23 @@ public class thisGame extends Game
 			player1.setContested(false);
 			player2.setContested(false);
 		}
-		
+
 		if (player1.getPoints() > 20)
 		{
 			//g.drawString("Player 1 wins!", 350, 100);
 			JOptionPane.showMessageDialog(new JFrame(),  "Player 1", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
-			System.exit(0);
+			this.init(world);
+			//System.exit(0);
 		}
 		else if (player2.getPoints() > 20)
 		{
 			//g.drawString("Player 2 wins!", 350, 100);
 			JOptionPane.showMessageDialog(new JFrame(),  "Player 2", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
-			System.exit(0);
+
+			this.init(world);
+			//System.exit(0);
 		}
-		
+
 
 		colHandler.collide(player1, player2);
 		//System.out.println("Has Collided: " + colHandler.hasCollided());
@@ -132,44 +145,59 @@ public class thisGame extends Game
 
 	protected void draw(Graphics2D g)
 	{
-
-		//super.draw(g);
-
-		g.drawImage(bg, 0, -75, 800, 500, null);
-
-		//g.drawImage(player,(int) (player1.getX() - player1.getWidth() / 2),(int) (player1.getY() - player1.getHeight() / 2),(int) player1.getWidth(), (int) player1.getHeight(),null);
-		//g.drawImage(player,(int) (player2.getX() - player2.getWidth() / 2),(int) (player2.getY() - player2.getHeight() / 2),(int) player2.getWidth(), (int) player2.getHeight(),null);
-		//g.fillRect((int)player1.getPositionDelta().getX(),(int)player1.getPositionDelta().getY() , 50, 50);
-
-		player1.draw(g);
-		player2.draw(g);
-		
-		creator.drawWorld(g);
-
-
-		g.setColor(Color.BLACK);
-
-		g.drawString("Player 1", player1.getX() - 21, player1.getY() - 30);
-		g.drawString("Player 2", player2.getX() - 21, player2.getY() - 30);
-
-		g.drawString("Player 1 Points: " + player1.getPoints(), 25, 100);
-		g.drawString("Player 2 Points: " + player2.getPoints(), 675, 100);
-
-		
-		
-		//g.fillRect(100, 100, 200, 100);
-		
-		if (player1.getContested() && player2.getContested())
+		g.setColor(Color.black);
+		if (currentState.equals(GameState.Menu))
 		{
-			g.drawString("Hill contested!", 350, 100);
+			g.drawString("here is a menu", 300, 100);
 		}
-		else if (player1.topOfHill())
+		else if (currentState.equals(GameState.Rules))
 		{
-			g.drawString("Player 1 in control!", 350, 100);
+			g.drawString("here are some rules", 300, 100);
 		}
-		else if (player2.topOfHill())
+		else if (currentState.equals(GameState.Credits))
 		{
-			g.drawString("Player 2 in control!", 350, 100);
+			g.drawString("here are some credits", 300, 100);
+		}
+		else if (currentState.equals(GameState.Game))
+		{
+			//super.draw(g);
+
+			//g.drawImage(bg, 0, -75, 800, 500, null);
+
+			//g.drawImage(player,(int) (player1.getX() - player1.getWidth() / 2),(int) (player1.getY() - player1.getHeight() / 2),(int) player1.getWidth(), (int) player1.getHeight(),null);
+			//g.drawImage(player,(int) (player2.getX() - player2.getWidth() / 2),(int) (player2.getY() - player2.getHeight() / 2),(int) player2.getWidth(), (int) player2.getHeight(),null);
+			//g.fillRect((int)player1.getPositionDelta().getX(),(int)player1.getPositionDelta().getY() , 50, 50);
+			g.drawImage(hillBG, 1, 10, 800, 500, null);
+			player1.draw(g);
+			player2.draw(g);
+
+			//creator.drawWorld(g);
+
+
+			g.setColor(Color.BLACK);
+
+			g.drawString("Player 1", player1.getX() - 21, player1.getY() - 30);
+			g.drawString("Player 2", player2.getX() - 21, player2.getY() - 30);
+
+			g.drawString("Player 1 Points: " + player1.getPoints(), 25, 100);
+			g.drawString("Player 2 Points: " + player2.getPoints(), 675, 100);
+
+
+
+			//g.fillRect(100, 100, 200, 100);
+
+			if (player1.getContested() && player2.getContested())
+			{
+				g.drawString("Hill contested!", 350, 100);
+			}
+			else if (player1.topOfHill())
+			{
+				g.drawString("Player 1 in control!", 350, 100);
+			}
+			else if (player2.topOfHill())
+			{
+				g.drawString("Player 2 in control!", 350, 100);
+			}
 		}
 	}
 

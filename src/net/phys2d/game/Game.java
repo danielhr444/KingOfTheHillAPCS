@@ -185,7 +185,7 @@ public abstract class Game implements Runnable{
 			renderGUI(g);
 			g.setColor(Color.black);
 			//g.drawString("FAv: "+frameAverage,10,50);
-			//g.drawString("FPS: "+(int) (1000 / frameAverage),10,70);
+			g.drawString("FPS: "+(int) (1000 / frameAverage),10,70);
 			//g.drawString("Yield: "+yield,10,90);
 			//g.drawString("Arbiters: "+world.getArbiters().size(),10,110);
 			//g.drawString("Bodies: "+world.getBodies().size(),10,130);

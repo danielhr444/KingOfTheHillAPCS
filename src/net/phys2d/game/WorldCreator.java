@@ -199,7 +199,7 @@ public class WorldCreator
 			}
 		}
 		
-		
+		/*
 		for (int i = 0; i < 32; i++)
 		{
 			g.drawImage(dirtBlock, i * 25, 430, 25, 25, null);
@@ -233,6 +233,6 @@ public class WorldCreator
 		}
 		
 		g.drawImage(dirtBlock, 345, 255, 25, 25, null);
-
+*/
 	}
 }
