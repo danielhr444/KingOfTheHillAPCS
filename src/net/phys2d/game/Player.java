@@ -1,7 +1,11 @@
 package net.phys2d.game;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.io.IOException;
 import java.util.Timer;
-import java.util.TimerTask;
-import net.phys2d.game.*;
+
+import javax.imageio.ImageIO;
+
 import net.phys2d.math.Vector2f;
 import net.phys2d.raw.Body;
 import net.phys2d.raw.BodyList;
@@ -17,7 +21,9 @@ public class Player extends Body
 	private int points;
 	private boolean contested;
 	private pointCounter pointHandler;
-	
+	private Image[] myIcon;
+	private int myTicks;
+
 	/**
 	 * @param shape
 	 * @param mass
@@ -30,14 +36,37 @@ public class Player extends Body
 
 		Timer timer = new Timer();
 		pointHandler = new pointCounter();
-	
+
 		timer.scheduleAtFixedRate(pointHandler, 1000, 1000);
 		setMaxVelocity(75.0f, 75.0f);
 		contested = false;
+		myIcon = new Image[3];
+		try {
+			myIcon[0] = ImageIO.read(this.getClass().getClassLoader().getResource("Images/PlayerFrame1.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			myIcon[1] = ImageIO.read(this.getClass().getClassLoader().getResource("Images/PlayerFrame2.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			myIcon[2] = ImageIO.read(this.getClass().getClassLoader().getResource("Images/PlayerFrame3.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		myTicks = 0;
 		// TODO Auto-generated constructor stub
 	}
 
-	
+
 	/**
 	 * @return current X position
 	 */
@@ -45,7 +74,7 @@ public class Player extends Body
 	{
 		return (this.getPosition().getX() + 1.35f);
 	}
-	
+
 	/**
 	 * @return player height
 	 */
@@ -53,7 +82,7 @@ public class Player extends Body
 	{
 		return (this.getShape().getBounds().getHeight() - 19);
 	}
-	
+
 	/**
 	 * @return player width
 	 */
@@ -90,7 +119,7 @@ public class Player extends Body
 				return false;
 			}
 		}
-		
+
 		return true;
 
 	}
@@ -134,6 +163,7 @@ public class Player extends Body
 	{
 		//setMaxVelocity(75.0f, 5000.0f);
 		//adjustVelocity(new Vector2f(-75, 0));
+		myTicks++;
 		setVelocity(new Vector2f(-75, this.getVelocity().getY()));
 	}
 
@@ -145,6 +175,7 @@ public class Player extends Body
 
 		//setMaxVelocity(75.0f, 5000.0f);
 		//adjustVelocity(new Vector2f(75, 0));
+		myTicks++;
 		setVelocity(new Vector2f(75f,this.getVelocity().getY()));
 	}
 
@@ -154,28 +185,28 @@ public class Player extends Body
 	 */
 	public void jump()
 	{
-		
+
 		//if (!isUp())
 		{
-			
+
 			//setMaxVelocity(75.0f, 5000.0f);
 			setVelocity(new Vector2f(this.getVelocity().getX(), -75));
 			this.clearTouching();
 		}
-		
-		
+
+
 	}
 
 
 	/**
-	 * makes player stop moving
+	 * makes player stop moving`
 	 */
 	public void stop()
 	{
 		this.setVelocity(new Vector2f(0,this.getVelocity().getY()));
-
+		this.setDamping(0);
 	}
-	
+
 	/**
 	 * @return number of points player has
 	 */
@@ -183,14 +214,14 @@ public class Player extends Body
 	{
 		return points;
 	}
-	
+
 	/**
 	 * @return if the player is at the top of the hill
 	 */
 	public boolean topOfHill()
 	{
 		//System.out.println(this.getClass().getName() + this.getX() + " " +  this.getY());
-		return (this.getX() > 315 && this.getX() < 410 && this.getY() < 220);
+		return (this.getX() > 330 && this.getX() < 390 && this.getY() < 230);
 	}
 
 	/**
@@ -200,7 +231,7 @@ public class Player extends Body
 	{
 		contested = isContested;
 	}
-	
+
 	/**
 	 * @return contested
 	 */
@@ -208,13 +239,13 @@ public class Player extends Body
 	{
 		return contested;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see net.phys2d.raw.Body#update()
 	 */
 	public void update()
 	{
-		
+
 		super.update();
 		if (this.topOfHill() && !this.getContested())
 		{
@@ -225,10 +256,29 @@ public class Player extends Body
 			pointHandler.setOnHill(false);
 		}
 		points = pointHandler.getPoints();
-		
-	
+
+
 	}
-	
+
+	/**
+	 * @param g
+	 */
+	public void draw(Graphics2D g)
+	{
+		//g.drawRect((int)this.getX(), (int)this.getY(), (int)this.getWidth(), (int)this.getHeight());
+
+		if (this.isMovingLeft() || this.isMovingRight())
+		{
+			
+			g.drawImage(myIcon[myTicks%2],(int) this.getX() - 110,(int) this.getY() - 195, 300, 300, null);
+		}
+		else
+		{
+			g.drawImage(myIcon[2],(int) this.getX() - 110,(int) this.getY() - 195, 300, 300, null);
+
+		}
+	}
+
 	/**
 	 * work in progress- collide with other player
 	 */
@@ -240,7 +290,7 @@ public class Player extends Body
 			if(touching.get(i) instanceof Player)
 			{
 				Player temp = (Player) touching.get(i);
-				
+
 				if(Math.abs(temp.getForce().getX()) > Math.abs(this.getForce().getX()) )
 					this.addForce(new Vector2f(temp.getForce().getX(), temp.getForce().getY()));
 				else if(Math.abs(temp.getForce().getX()) < Math.abs(this.getForce().getX()) )

@@ -27,14 +27,14 @@ public class WorldCreator
 
 
 		try {
-			dirtBlock = ImageIO.read(new File("src/Images/DirtBlock (2).png"));
+			dirtBlock = ImageIO.read(cldr.getResource("Images/DirtBlock (2).png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		try {
-			grassBlock = ImageIO.read(new File ("src/Images/GrassBlock.png"));
+			grassBlock = ImageIO.read(cldr.getResource("Images/GrassBlock.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

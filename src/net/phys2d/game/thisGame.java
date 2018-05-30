@@ -32,14 +32,14 @@ public class thisGame extends Game
 		
 		cldr = getClass().getClassLoader();
 		try {
-			player = ImageIO.read(new File("src/Images/boxx.png"));
+			player = ImageIO.read(cldr.getResource("Images/boxx.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		try {
-			bg = ImageIO.read(new File("src/Images/BackgroundImage2.png"));
+			bg = ImageIO.read(cldr.getResource("Images/BackgroundImage2.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,13 +61,13 @@ public class thisGame extends Game
 		//rectangle.setPosition(250.0f, 100.0f);// TODO Auto-generated method stub
 		//world.add(rectangle);
 
-		player1  = new Player(new Box(50f, 50f), 0.2f, "Player 1");
+		player1  = new Player(new Box(35, 35f), 0.2f, "Player 1");
 		player1.setPosition(50.0f, 100.0f);
 		player1.setRotatable(false);
 		player1.setMass(20f);
 		player1.setFriction(0f);
 
-		player2  = new Player(new Box(50f, 50f), 0.2f, "Player 2");
+		player2  = new Player(new Box(35f, 35f), 0.2f, "Player 2");
 		player2.setPosition(750.0f, 100.0f);
 		player2.setRotatable(false);
 		player2.setMass(20f);
@@ -120,10 +120,13 @@ public class thisGame extends Game
 
 		g.drawImage(bg, 0, -75, 800, 500, null);
 
-		g.drawImage(player,(int) (player1.getX() - player1.getWidth() / 2),(int) (player1.getY() - player1.getHeight() / 2),(int) player1.getWidth(), (int) player1.getHeight(),null);
-		g.drawImage(player,(int) (player2.getX() - player2.getWidth() / 2),(int) (player2.getY() - player2.getHeight() / 2),(int) player2.getWidth(), (int) player2.getHeight(),null);
+		//g.drawImage(player,(int) (player1.getX() - player1.getWidth() / 2),(int) (player1.getY() - player1.getHeight() / 2),(int) player1.getWidth(), (int) player1.getHeight(),null);
+		//g.drawImage(player,(int) (player2.getX() - player2.getWidth() / 2),(int) (player2.getY() - player2.getHeight() / 2),(int) player2.getWidth(), (int) player2.getHeight(),null);
 		//g.fillRect((int)player1.getPositionDelta().getX(),(int)player1.getPositionDelta().getY() , 50, 50);
 
+		player1.draw(g);
+		player2.draw(g);
+		
 		creator.drawWorld(g);
 
 

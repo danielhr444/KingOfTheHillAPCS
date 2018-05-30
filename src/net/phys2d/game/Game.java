@@ -103,7 +103,7 @@ public abstract class Game implements Runnable{
 	private void initGUI() {
 		BufferedImage icon = null;
 		try {
-			icon = ImageIO.read(new File("src/Images/BackgroundImage2.png"));
+			icon = ImageIO.read(this.getClass().getClassLoader().getResource("Images/PlayerFrame3.png"));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -112,7 +112,7 @@ public abstract class Game implements Runnable{
 		frame = new JFrame(title);
 		frame.setIconImage(icon);
 		frame.setResizable(false);
-		frame.setIgnoreRepaint(true);
+		//frame.setIgnoreRepaint(true);
 		frame.setSize(800,500);
 		
 		int x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 800) / 2;
@@ -185,7 +185,7 @@ public abstract class Game implements Runnable{
 			renderGUI(g);
 			g.setColor(Color.black);
 			//g.drawString("FAv: "+frameAverage,10,50);
-			g.drawString("FPS: "+(int) (1000 / frameAverage),10,70);
+			//g.drawString("FPS: "+(int) (1000 / frameAverage),10,70);
 			//g.drawString("Yield: "+yield,10,90);
 			//g.drawString("Arbiters: "+world.getArbiters().size(),10,110);
 			//g.drawString("Bodies: "+world.getBodies().size(),10,130);

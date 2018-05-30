@@ -62,7 +62,7 @@ public class ColissionHandler
 				
 				//player2.adjustVelocity(new Vector2f(2 * player1.getVelocity().getX(), player2.getVelocity().getY()));
 			}
-			else
+			else if (Math.abs(player1.getVelocity().getX()) < Math.abs(player2.getVelocity().getX()))
 			{
 				
 				//player1.adjustVelocity(new Vector2f(2 * player2.getVelocity().getX(), player1.getVelocity().getY()));
