@@ -29,7 +29,7 @@ public class thisGame extends Game
 	ColissionHandler colHandler;
 	boolean worldDrawn = false;
 
-	Object currentState = null;
+	static Object currentState = null;
 
 	public thisGame()
 	{
