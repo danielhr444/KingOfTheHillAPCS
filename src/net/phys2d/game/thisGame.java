@@ -20,7 +20,7 @@ import net.phys2d.raw.shapes.Line;
 public class thisGame extends Game 
 {
 	BufferedImage player;
-	BufferedImage bg;
+	BufferedImage menu;
 	BufferedImage hillBG;
 	WorldCreator creator;
 	Player player1;
@@ -30,6 +30,7 @@ public class thisGame extends Game
 	boolean worldDrawn = false;
 
 	static Object currentState = null;
+	
 
 	public thisGame()
 	{
@@ -44,7 +45,7 @@ public class thisGame extends Game
 		}
 
 		try {
-			bg = ImageIO.read(cldr.getResource("Images/BackgroundImage2.png"));
+			menu = ImageIO.read(cldr.getResource("Images/MenuScreenMeme.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,7 +58,7 @@ public class thisGame extends Game
 			e.printStackTrace();
 		}
 
-		currentState = GameState.Game;
+		currentState = GameState.Menu;
 	}
 
 	protected void init(World world) 
@@ -150,6 +151,7 @@ public class thisGame extends Game
 		g.setColor(Color.black);
 		if (currentState.equals(GameState.Menu))
 		{
+			g.drawImage(menu, 0, 0, null);
 			g.drawString("here is a menu", 300, 100);
 		}
 		else if (currentState.equals(GameState.Paused))
