@@ -1,6 +1,7 @@
 package net.phys2d.game;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Shape;
@@ -22,6 +23,7 @@ public class thisGame extends Game
 	BufferedImage player;
 	BufferedImage menu;
 	BufferedImage hillBG;
+	BufferedImage bg;
 	WorldCreator creator;
 	Player player1;
 	Player player2;
@@ -43,6 +45,13 @@ public class thisGame extends Game
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		try {
+			bg = ImageIO.read(cldr.getResource("Images/BackgroundImage2.png"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		try {
 			menu = ImageIO.read(cldr.getResource("Images/MenuScreenMeme.jpg"));
@@ -58,7 +67,7 @@ public class thisGame extends Game
 			e.printStackTrace();
 		}
 
-		currentState = GameState.Menu;
+		currentState = GameState.Rules;
 	}
 
 	protected void init(World world) 
@@ -160,7 +169,29 @@ public class thisGame extends Game
 		}
 		else if (currentState.equals(GameState.Rules))
 		{
-			g.drawString("here are some rules", 300, 100);
+			g.drawImage(bg, 0, 0, 800, 500, null);
+			g.setFont(new Font("Monospaced", Font.PLAIN, 24));
+			g.drawString("Rules: ", 50, 100);
+			g.drawString("Player 1 Controls: ", 50, 250);
+			g.drawString("Player 2 Controls: ", 500, 250);
+			g.setFont(new Font("Monospaced", Font.PLAIN, 18));
+			g.drawString("Each player gains a point each second they are on the hill.", 50, 150 );
+			g.drawString("First player to 20 points wins!", 50, 200);
+			g.drawString("W: Jump", 50, 300);
+			g.drawString("D: Right", 50, 325);
+			g.drawString("A: Left", 50, 350);
+			
+			g.drawString("Up Arrow: Jump", 500, 300);
+			g.drawString("Right Arrow: Right", 500, 325);
+			g.drawString("Left Arrow: Left", 500, 350);
+			
+			
+			
+			g.setColor(Color.gray);
+			g.fillRect(350, 400, 100, 50);
+			g.setColor(Color.black);
+			g.drawString("Menu", 377, 427);
+			
 		}
 		else if (currentState.equals(GameState.Credits))
 		{

@@ -1,6 +1,7 @@
 package net.phys2d.game;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
@@ -184,6 +185,7 @@ public abstract class Game implements Runnable{
 			draw(g);
 			renderGUI(g);
 			g.setColor(Color.black);
+			g.setFont(new Font("TimesRoman", Font.PLAIN, 12));
 			//g.drawString("FAv: "+frameAverage,10,50);
 			g.drawString("FPS: "+(int) (1000 / frameAverage),10,70);
 			//g.drawString("Yield: "+yield,10,90);
