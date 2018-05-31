@@ -5,5 +5,6 @@ public enum GameState
 	Menu(),
 	Game(),
 	Credits(),
+	Paused(),
 	Rules();
 }
