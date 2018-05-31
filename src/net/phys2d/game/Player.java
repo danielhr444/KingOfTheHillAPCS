@@ -18,11 +18,13 @@ public class Player extends Body
 	private boolean movingLeft;
 	private boolean movingRight;
 	private boolean isUp = false;
+	private boolean needsRespawn = false;
 	private int points;
 	private boolean contested;
 	private pointCounter pointHandler;
 	private Image[] myIcon;
 	private int myTicks;
+	private float mySpawnX, mySpawnY;
 
 	/**
 	 * @param shape
@@ -75,6 +77,12 @@ public class Player extends Body
 		return (this.getPosition().getX() + 1.35f);
 	}
 
+	public void setSpawn(float x, float y)
+	{
+		mySpawnX = x;
+		mySpawnY = y;
+	}
+	
 	/**
 	 * @return player height
 	 */
@@ -246,6 +254,16 @@ public class Player extends Body
 	public void update()
 	{
 
+		if (this.getY() > 450 && this.getY() < 1100)
+		{
+			this.needsRespawn = true;
+		}
+		else if (this.getY() > 1100)
+		{
+			this.setPosition(mySpawnX, mySpawnY);
+			this.needsRespawn = false;
+		}
+		
 		super.update();
 		if (this.topOfHill() && !this.getContested())
 		{
@@ -267,6 +285,19 @@ public class Player extends Body
 	{
 		//g.drawRect((int)this.getX(), (int)this.getY(), (int)this.getWidth(), (int)this.getHeight());
 
+		if (this.needsRespawn)
+		{
+			if (this.getName().equals("Player 2"))
+			{
+				g.drawString(this.getName() + " Respawning...", this.mySpawnX - 90, this.mySpawnY + 100);
+			}
+			else
+			{
+				g.drawString(this.getName() + " Respawning...", this.mySpawnX - 40, this.mySpawnY + 100);
+				
+			}
+		}
+		
 		if (this.isMovingLeft() || this.isMovingRight())
 		{
 			

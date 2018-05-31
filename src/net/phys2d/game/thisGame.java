@@ -75,12 +75,14 @@ public class thisGame extends Game
 
 		player1  = new Player(new Box(35, 35f), 0.2f, "Player 1");
 		player1.setPosition(50.0f, 100.0f);
+		player1.setSpawn(50, 100);
 		player1.setRotatable(false);
 		player1.setMass(20f);
 		player1.setFriction(0f);
 
 		player2  = new Player(new Box(35f, 35f), 0.2f, "Player 2");
 		player2.setPosition(750.0f, 100.0f);
+		player2.setSpawn(750, 100);
 		player2.setRotatable(false);
 		player2.setMass(20f);
 		player2.setFriction(0f);
