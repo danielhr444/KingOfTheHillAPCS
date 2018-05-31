@@ -129,12 +129,13 @@ public class thisGame extends Game
 			JOptionPane.showMessageDialog(new JFrame(),  "Player 1", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
 			this.init(world);
 			//System.exit(0);
+			//currentState = GameState.Menu;
 		}
 		else if (player2.getPoints() > 20)
 		{
 			//g.drawString("Player 2 wins!", 350, 100);
 			JOptionPane.showMessageDialog(new JFrame(),  "Player 2", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
-
+			//currentState = GameState.Menu;
 			this.init(world);
 			//System.exit(0);
 		}
@@ -153,6 +154,7 @@ public class thisGame extends Game
 		{
 			g.drawImage(menu, 0, 0, null);
 			g.drawString("here is a menu", 300, 100);
+			g.drawRect(600, 355, 170, 113);
 		}
 		else if (currentState.equals(GameState.Paused))
 		{
