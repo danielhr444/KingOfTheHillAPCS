@@ -152,6 +152,10 @@ public class thisGame extends Game
 		{
 			g.drawString("here is a menu", 300, 100);
 		}
+		else if (currentState.equals(GameState.Paused))
+		{
+			
+		}
 		else if (currentState.equals(GameState.Rules))
 		{
 			g.drawString("here are some rules", 300, 100);
