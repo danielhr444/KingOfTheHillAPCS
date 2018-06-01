@@ -149,17 +149,23 @@ public class thisGame extends Game
 			{
 				//g.drawString("Player 1 wins!", 350, 100);
 				JOptionPane.showMessageDialog(new JFrame(),  "Player 1", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
-				this.init(world);
+				//this.init(world);
 				//System.exit(0);
-				//currentState = GameState.Menu;
+				currentState = GameState.Menu;
+				gameStarted = false;
+				world.clear();
+				this.init(world);
 			}
 			else if (player2.getPoints() > 20)
 			{
 				//g.drawString("Player 2 wins!", 350, 100);
 				JOptionPane.showMessageDialog(new JFrame(),  "Player 2", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
-				//currentState = GameState.Menu;
-				this.init(world);
+				currentState = GameState.Menu;
+				//this.init(world);
 				//System.exit(0);
+				gameStarted = false;
+				world.clear();
+				this.init(world);
 			}
 
 
@@ -175,7 +181,7 @@ public class thisGame extends Game
 		if (currentState.equals(GameState.Menu))
 		{
 			g.drawImage(menu, 0, 0, null);
-			g.drawString("here is a menu", 300, 100);
+			//g.drawString("here is a menu", 300, 100);
 			g.drawRect(600, 355, 170, 113);
 
 		}
