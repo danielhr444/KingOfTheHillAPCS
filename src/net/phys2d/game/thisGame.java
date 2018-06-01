@@ -187,13 +187,12 @@ public class thisGame extends Game
 			g.drawString("Right Arrow: Right", 500, 325);
 			g.drawString("Left Arrow: Left", 500, 350);
 			
-			
-			
 			g.setColor(Color.gray);
 			g.fillRect(350, 400, 100, 50);
 			g.setColor(Color.black);
 			g.drawString("Menu", 377, 427);
 			
+			g.drawRect(350, 400, 98, 49);
 		}
 		else if (currentState.equals(GameState.Credits))
 		{
