@@ -24,6 +24,7 @@ public class thisGame extends Game
 	BufferedImage menu;
 	BufferedImage hillBG;
 	BufferedImage bg;
+	BufferedImage pause;
 	WorldCreator creator;
 	Player player1;
 	Player player2;
@@ -68,6 +69,12 @@ public class thisGame extends Game
 			e.printStackTrace();
 		}
 
+		try {
+			pause = ImageIO.read(cldr.getResource("Images/King_Button_Pause.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		currentState = GameState.Menu;
 		paused = false;
 	}
@@ -177,7 +184,7 @@ public class thisGame extends Game
 		if (currentState.equals(GameState.Menu))
 		{
 			g.drawImage(menu, 0, 0, null);
-			g.drawString("here is a menu", 300, 100);
+			//g.drawString("here is a menu", 300, 100);
 			g.drawRect(600, 355, 170, 113);
 			paused = false;
 
@@ -204,13 +211,13 @@ public class thisGame extends Game
 			g.drawString("Right Arrow: Right", 500, 325);
 			g.drawString("Left Arrow: Left", 500, 350);
 
-
-
 			g.setColor(Color.gray);
 			g.fillRect(350, 400, 100, 50);
 			g.setColor(Color.black);
 			g.drawString("Menu", 377, 427);
 			paused = false;
+
+			//g.drawRect(350, 400, 98, 49);
 
 		}
 		else if (currentState.equals(GameState.Credits))
@@ -231,9 +238,13 @@ public class thisGame extends Game
 			player1.draw(g);
 			player2.draw(g);
 
+			//g.setColor(Color.green);
+			//g.fillRect(310, 60, 100, 50);
+			//g.setColor(Color.black);
+			//g.drawString("Pause", 377, 427);
+			
+			g.drawImage(pause, 310, 375, 100, 50, null);
 			//creator.drawWorld(g);
-
-
 
 			g.setColor(Color.BLACK);
 
@@ -242,8 +253,6 @@ public class thisGame extends Game
 
 			g.drawString("Player 1 Points: " + player1.getPoints(), 25, 100);
 			g.drawString("Player 2 Points: " + player2.getPoints(), 675, 100);
-
-
 
 			//g.fillRect(100, 100, 200, 100);
 

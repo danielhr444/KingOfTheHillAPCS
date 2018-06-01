@@ -32,6 +32,16 @@ public class MouseInput extends MouseAdapter
 				thisGame.currentState = GameState.Credits;
 			}
 		}
+		else if(thisGame.currentState.equals((GameState.Rules)))
+		{
+			if(e.getX() > 350 && e.getX() < 448 && e.getY() > 400 && e.getY() < 449)
+				thisGame.currentState = GameState.Menu;
+		}
+		else if(thisGame.currentState.equals(GameState.Game))
+		{
+			if(e.getX() > 310 && e.getX() < 410 && e.getY() > 375 && e.getY() < 425)
+				thisGame.currentState = GameState.Paused;
+		}
 	}
 	
 
