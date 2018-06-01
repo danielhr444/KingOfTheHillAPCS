@@ -16,17 +16,17 @@ public class MouseInput extends MouseAdapter
 	{
 		if(thisGame.currentState.equals(GameState.Menu))
 		{
-			if(e.getX() > 30 && e.getX() < 200 && e.getY() > 355 && e.getY() < 468)
+			if(e.getX() > 35 && e.getX() < 235 && e.getY() > 370 && e.getY() < 430)
 			{
 				System.out.println(e.getX() + " " + e.getY());
 				thisGame.currentState = GameState.Rules;
 			}
-			if(e.getX() > 310 && e.getX() < 480 && e.getY() > 355 && e.getY() < 468)
+			if(e.getX() > 310 && e.getX() < 475 && e.getY() > 375 && e.getY() < 425)
 			{
 				System.out.println(e.getX() + " " + e.getY());
 				thisGame.currentState = GameState.Game;
 			}
-			if(e.getX() > 600 && e.getX() < 770 && e.getY() > 355 && e.getY() < 468)
+			if(e.getX() > 535 && e.getX() < 610 && e.getY() > 360 && e.getY() < 420)
 			{
 				System.out.println(e.getX() + " " + e.getY());
 				thisGame.currentState = GameState.Credits;
