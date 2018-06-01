@@ -224,6 +224,8 @@ public class thisGame extends Game
 			//g.drawImage(credits, 540, 350, 200, 90, null);
 			g.drawImage(credits, 530, 350, null);
 			g.drawImage(rules, 30, 370, null);
+			
+			g.drawRect(535, 360, 275, 60);
 
 		}
 		else if (currentState.equals(GameState.Paused))
