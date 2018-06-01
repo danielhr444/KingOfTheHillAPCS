@@ -90,7 +90,7 @@ public abstract class Game implements Runnable{
 	 */
 	protected void keyHit(char c) {
 		if (c == 'r') {
-			needsReset = true;
+			//needsReset = true;
 			thisGame.currentState = GameState.Menu;
 		}
 		if (c == 'c') {

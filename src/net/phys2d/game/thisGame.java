@@ -139,7 +139,7 @@ public class thisGame extends Game
 				player1.setContested(true);
 				player2.setContested(true);
 			}
-			else
+			else					
 			{
 				player1.setContested(false);
 				player2.setContested(false);
