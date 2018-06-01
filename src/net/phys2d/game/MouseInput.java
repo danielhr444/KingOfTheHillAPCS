@@ -21,7 +21,7 @@ public class MouseInput extends MouseAdapter
 				System.out.println(e.getX() + " " + e.getY());
 				thisGame.currentState = GameState.Rules;
 			}
-			if(e.getX() > 329 && e.getX() < 499 && e.getY() > 355 && e.getY() < 468)
+			if(e.getX() > 310 && e.getX() < 480 && e.getY() > 355 && e.getY() < 468)
 			{
 				System.out.println(e.getX() + " " + e.getY());
 				thisGame.currentState = GameState.Game;
