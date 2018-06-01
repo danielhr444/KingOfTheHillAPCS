@@ -230,6 +230,12 @@ public class thisGame extends Game
 			//g.drawImage(credits, 540, 350, 200, 90, null);
 			g.drawImage(credits, 530, 350, null);
 			g.drawImage(rules, 30, 370, null);
+			try {
+				g.drawImage(ImageIO.read(cldr.getResource("Images/PlayerFrame3.png")), 165, -120, 600, 600, null);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		}
 		else if (currentState.equals(GameState.Rules))
