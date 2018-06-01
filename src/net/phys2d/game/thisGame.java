@@ -24,15 +24,16 @@ public class thisGame extends Game
 	BufferedImage menu;
 	BufferedImage hillBG;
 	BufferedImage bg;
+	BufferedImage pause;
 	WorldCreator creator;
 	Player player1;
 	Player player2;
 	ClassLoader cldr ;	
 	ColissionHandler colHandler;
 	boolean worldDrawn = false;
-
+	boolean gameStarted = false;
 	static Object currentState = null;
-	
+
 
 	public thisGame()
 	{
@@ -45,7 +46,7 @@ public class thisGame extends Game
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		try {
 			bg = ImageIO.read(cldr.getResource("Images/BackgroundImage2.png"));
 		} catch (IOException e1) {
@@ -67,7 +68,13 @@ public class thisGame extends Game
 			e.printStackTrace();
 		}
 
-		currentState = GameState.Rules;
+		try {
+			pause = ImageIO.read(cldr.getResource("Images/King_Button_Pause.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		currentState = GameState.Menu;
 	}
 
 	protected void init(World world) 
@@ -76,6 +83,7 @@ public class thisGame extends Game
 
 		creator = new WorldCreator(world);
 		creator.createWorld();
+		super.frame.addMouseListener(new MouseInput());
 		//Shape square = new Rectangle2D.Float(100.0f, 100.0f, 100.0f, 100.0f);
 		//Body rectangle = new Body("Player 1", new Box(50f, 50f), 0.25f);
 		//rectangle.setMaxVelocity(50, 1000);
@@ -83,27 +91,35 @@ public class thisGame extends Game
 		//rectangle.setPosition(250.0f, 100.0f);// TODO Auto-generated method stub
 		//world.add(rectangle);
 
-		player1  = new Player(new Box(35, 35f), 0.2f, "Player 1");
-		player1.setPosition(45.0f, 100.0f);
-		player1.setSpawn(45, 100);
-		player1.setRotatable(false);
-		player1.setMass(20f);
-		player1.setFriction(0f);
 
-		player2  = new Player(new Box(35f, 35f), 0.2f, "Player 2");
-		player2.setPosition(750.0f, 100.0f);
-		player2.setSpawn(750, 100);
-		player2.setRotatable(false);
-		player2.setMass(20f);
-		player2.setFriction(0f);
+	}
 
-		world.setGravity(0, 45f);
-		world.add(player1);
-		world.add(player2);
-		super.frame.addKeyListener(new KeyInput(world.getBodies(), player1, player2));
-		super.frame.addMouseListener(new MouseInput());
-		colHandler = new ColissionHandler();
+	public void play(World world)
+	{
+		if (!gameStarted)
+		{
+			player1  = new Player(new Box(35, 35f), 0.2f, "Player 1");
+			player1.setPosition(45.0f, 100.0f);
+			player1.setSpawn(45, 100);
+			player1.setRotatable(false);
+			player1.setMass(20f);
+			player1.setFriction(0f);
 
+			player2  = new Player(new Box(35f, 35f), 0.2f, "Player 2");
+			player2.setPosition(750.0f, 100.0f);
+			player2.setSpawn(750, 100);
+			player2.setRotatable(false);
+			player2.setMass(20f);
+			player2.setFriction(0f);
+
+			world.setGravity(0, 45f);
+			world.add(player1);
+			world.add(player2);
+			super.frame.addKeyListener(new KeyInput(world.getBodies(), player1, player2));
+
+			colHandler = new ColissionHandler();
+			gameStarted = true;
+		}
 	}
 
 	public static void main(String args[])
@@ -113,47 +129,51 @@ public class thisGame extends Game
 
 	}
 
+
+
 	public void update() 
 	{
-
-		for (int i = 0; i < this.world.getBodies().size(); i++)
+		if (currentState.equals(GameState.Game) && gameStarted)
 		{
-			Body currentBod = this.world.getBodies().get(i);
-			currentBod.update();
-		}
-		if (player1.topOfHill() && player2.topOfHill())
-		{
-			player1.setContested(true);
-			player2.setContested(true);
-		}
-		else
-		{
-			player1.setContested(false);
-			player2.setContested(false);
-		}
 
-		if (player1.getPoints() > 20)
-		{
-			//g.drawString("Player 1 wins!", 350, 100);
-			JOptionPane.showMessageDialog(new JFrame(),  "Player 1", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
-			this.init(world);
-			//System.exit(0);
-			//currentState = GameState.Menu;
+			for (int i = 0; i < this.world.getBodies().size(); i++)
+			{
+				Body currentBod = this.world.getBodies().get(i);
+				currentBod.update();
+			}
+			if (player1.topOfHill() && player2.topOfHill())
+			{
+				player1.setContested(true);
+				player2.setContested(true);
+			}
+			else
+			{
+				player1.setContested(false);
+				player2.setContested(false);
+			}
+
+			if (player1.getPoints() > 20)
+			{
+				//g.drawString("Player 1 wins!", 350, 100);
+				JOptionPane.showMessageDialog(new JFrame(),  "Player 1", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
+				this.init(world);
+				//System.exit(0);
+				//currentState = GameState.Menu;
+			}
+			else if (player2.getPoints() > 20)
+			{
+				//g.drawString("Player 2 wins!", 350, 100);
+				JOptionPane.showMessageDialog(new JFrame(),  "Player 2", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
+				//currentState = GameState.Menu;
+				this.init(world);
+				//System.exit(0);
+			}
+
+
+			colHandler.collide(player1, player2);
+			//System.out.println("Has Collided: " + colHandler.hasCollided());
+			// TODO Auto-generated method stub
 		}
-		else if (player2.getPoints() > 20)
-		{
-			//g.drawString("Player 2 wins!", 350, 100);
-			JOptionPane.showMessageDialog(new JFrame(),  "Player 2", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
-			//currentState = GameState.Menu;
-			this.init(world);
-			//System.exit(0);
-		}
-
-
-		colHandler.collide(player1, player2);
-		//System.out.println("Has Collided: " + colHandler.hasCollided());
-		// TODO Auto-generated method stub
-
 	}
 
 	protected void draw(Graphics2D g)
@@ -162,12 +182,13 @@ public class thisGame extends Game
 		if (currentState.equals(GameState.Menu))
 		{
 			g.drawImage(menu, 0, 0, null);
-			g.drawString("here is a menu", 300, 100);
+			//g.drawString("here is a menu", 300, 100);
 			g.drawRect(600, 355, 170, 113);
+
 		}
 		else if (currentState.equals(GameState.Paused))
 		{
-			
+
 		}
 		else if (currentState.equals(GameState.Rules))
 		{
@@ -182,17 +203,18 @@ public class thisGame extends Game
 			g.drawString("W: Jump", 50, 300);
 			g.drawString("D: Right", 50, 325);
 			g.drawString("A: Left", 50, 350);
-			
+
 			g.drawString("Up Arrow: Jump", 500, 300);
 			g.drawString("Right Arrow: Right", 500, 325);
 			g.drawString("Left Arrow: Left", 500, 350);
-			
+
 			g.setColor(Color.gray);
 			g.fillRect(350, 400, 100, 50);
 			g.setColor(Color.black);
 			g.drawString("Menu", 377, 427);
-			
-			g.drawRect(350, 400, 98, 49);
+
+			//g.drawRect(350, 400, 98, 49);
+
 		}
 		else if (currentState.equals(GameState.Credits))
 		{
@@ -200,6 +222,7 @@ public class thisGame extends Game
 		}
 		else if (currentState.equals(GameState.Game))
 		{
+			this.play(world);
 			//super.draw(g);
 
 			//g.drawImage(bg, 0, -75, 800, 500, null);
@@ -211,9 +234,13 @@ public class thisGame extends Game
 			player1.draw(g);
 			player2.draw(g);
 
-			//creator.drawWorld(g);
-
+			//g.setColor(Color.green);
+			//g.fillRect(310, 60, 100, 50);
+			//g.setColor(Color.black);
+			//g.drawString("Pause", 377, 427);
 			
+			g.drawImage(pause, 310, 375, 100, 50, null);
+			//creator.drawWorld(g);
 
 			g.setColor(Color.BLACK);
 
@@ -222,8 +249,6 @@ public class thisGame extends Game
 
 			g.drawString("Player 1 Points: " + player1.getPoints(), 25, 100);
 			g.drawString("Player 2 Points: " + player2.getPoints(), 675, 100);
-
-
 
 			//g.fillRect(100, 100, 200, 100);
 
@@ -242,7 +267,7 @@ public class thisGame extends Game
 		}
 	}
 
-	
+
 	public void run() {
 		// TODO Auto-generated method stub
 
