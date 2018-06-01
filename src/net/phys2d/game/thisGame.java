@@ -22,9 +22,13 @@ public class thisGame extends Game
 {
 	BufferedImage player;
 	BufferedImage menu;
+	//BufferedImage menuBG;
 	BufferedImage hillBG;
 	BufferedImage bg;
 	BufferedImage pause;
+	BufferedImage rules;
+	BufferedImage credits;
+	BufferedImage play;
 	WorldCreator creator;
 	Player player1;
 	Player player2;
@@ -32,6 +36,7 @@ public class thisGame extends Game
 	ColissionHandler colHandler;
 	boolean worldDrawn = false;
 	boolean gameStarted = false;
+	//boolean gameStarted = false;
 	static Object currentState = null;
 
 
@@ -55,7 +60,7 @@ public class thisGame extends Game
 		}
 
 		try {
-			menu = ImageIO.read(cldr.getResource("Images/MenuScreenMeme.jpg"));
+			menu = ImageIO.read(cldr.getResource("Images/Testing_logo_2.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -70,6 +75,27 @@ public class thisGame extends Game
 
 		try {
 			pause = ImageIO.read(cldr.getResource("Images/King_Button_Pause.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			rules = ImageIO.read(cldr.getResource("Images/Testing_Button_Rules.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			credits = ImageIO.read(cldr.getResource("Images/Testing_Button_Credits.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			play = ImageIO.read(cldr.getResource("Images/Testing_Button_Play.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -188,9 +214,16 @@ public class thisGame extends Game
 		g.setColor(Color.black);
 		if (currentState.equals(GameState.Menu))
 		{
-			g.drawImage(menu, 0, 0, null);
+			
+			g.drawImage(bg, 1, 10, 800, 500, null);
+			g.drawImage(menu, 25, 50, 750, 100, null);
 			//g.drawString("here is a menu", 300, 100);
-			g.drawRect(600, 355, 170, 113);
+			//g.drawRect(600, 355, 170, 113);
+			
+			g.drawImage(play, 300, 370, null);
+			//g.drawImage(credits, 540, 350, 200, 90, null);
+			g.drawImage(credits, 530, 350, null);
+			g.drawImage(rules, 30, 370, null);
 
 		}
 		else if (currentState.equals(GameState.Paused))
