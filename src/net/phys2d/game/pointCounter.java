@@ -23,7 +23,7 @@ public class pointCounter extends TimerTask
 
 	public void run()
 	{
-		if (playerOnHill)
+		if (playerOnHill && !thisGame.paused)
 		{
 			points++;
 		}

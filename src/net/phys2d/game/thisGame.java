@@ -31,6 +31,7 @@ public class thisGame extends Game
 	ColissionHandler colHandler;
 	boolean worldDrawn = false;
 	boolean gameStarted = false;
+	public static boolean paused;
 	static Object currentState = null;
 
 
@@ -68,6 +69,7 @@ public class thisGame extends Game
 		}
 
 		currentState = GameState.Menu;
+		paused = false;
 	}
 
 	protected void init(World world) 
@@ -177,11 +179,12 @@ public class thisGame extends Game
 			g.drawImage(menu, 0, 0, null);
 			g.drawString("here is a menu", 300, 100);
 			g.drawRect(600, 355, 170, 113);
+			paused = false;
 
 		}
 		else if (currentState.equals(GameState.Paused))
 		{
-
+			paused = true;
 		}
 		else if (currentState.equals(GameState.Rules))
 		{
@@ -207,6 +210,7 @@ public class thisGame extends Game
 			g.fillRect(350, 400, 100, 50);
 			g.setColor(Color.black);
 			g.drawString("Menu", 377, 427);
+			paused = false;
 
 		}
 		else if (currentState.equals(GameState.Credits))
@@ -255,6 +259,7 @@ public class thisGame extends Game
 			{
 				g.drawString("Player 2 in control!", 350, 100);
 			}
+			paused = false;
 		}
 	}
 

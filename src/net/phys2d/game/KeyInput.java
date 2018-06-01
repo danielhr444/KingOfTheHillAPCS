@@ -11,13 +11,13 @@ public class KeyInput extends KeyAdapter
 {
 	private BodyList myHandler;
 	private Player player1, player2;
+	
 
 	public KeyInput(BodyList handler, Player p1, Player p2)
 	{
 		myHandler = handler;
 		player1 = p1;
 		player2 = p2;
-		
 		
 	}
 
@@ -30,53 +30,54 @@ public class KeyInput extends KeyAdapter
 			System.exit(1);
 		}
 
-
-		switch (key)
+		if(!thisGame.paused)
 		{
-		case KeyEvent.VK_W:
-
-			if(!player1.isUp())
+			switch (key)
 			{
-				player1.jump();
-				//thisPlayer.clearTouching();
-			}
-			break;
+			case KeyEvent.VK_W:
 
-		case KeyEvent.VK_A:
+				if(!player1.isUp())
+				{
+					player1.jump();
+					//thisPlayer.clearTouching();
+				}
+				break;
 
-			player1.moveLeft();//set vel to -5
-			player1.setMovingLeft(true);
-			break;
+			case KeyEvent.VK_A:
 
-		case KeyEvent.VK_D:
-			player1.moveRight();
-			player1.setMovingRight(true);
-			break;
+				player1.moveLeft();//set vel to -5
+				player1.setMovingLeft(true);
+				break;
+
+			case KeyEvent.VK_D:
+				player1.moveRight();
+				player1.setMovingRight(true);
+				break;
 
 
 
-		case KeyEvent.VK_UP:
-			if(!player2.isUp())
-			{
-				player2.jump();
-				//thisPlayer.clearTouching();
-			}
-			break;
+			case KeyEvent.VK_UP:
+				if(!player2.isUp())
+				{
+					player2.jump();
+					//thisPlayer.clearTouching();
+				}
+				break;
 
-		case KeyEvent.VK_LEFT:
+			case KeyEvent.VK_LEFT:
 
-			player2.moveLeft();//set vel to -5
-			player2.setMovingLeft(true);
-			break;
+				player2.moveLeft();//set vel to -5
+				player2.setMovingLeft(true);
+				break;
 
-		case KeyEvent.VK_RIGHT:
-			player2.moveRight();
-			player2.setMovingRight(true);
-			break;
+			case KeyEvent.VK_RIGHT:
+				player2.moveRight();
+				player2.setMovingRight(true);
+				break;
 
+			}	
 		}	
-	}	
-
+	}
 
 	public void keyReleased(KeyEvent e)
 	{
@@ -93,7 +94,7 @@ public class KeyInput extends KeyAdapter
 			player1.setMovingLeft(false);
 			break;
 
-		
+
 		case KeyEvent.VK_RIGHT:
 			player2.setMovingRight(false);
 			break;
@@ -113,8 +114,8 @@ public class KeyInput extends KeyAdapter
 			player1.stop();
 		}
 	}
-	
-	
+
+
 
 }
 
