@@ -193,16 +193,18 @@ public class Player extends Body
 	 */
 	public void jump()
 	{
-
 		//if (!isUp())
+		//setMaxVelocity(75.0f, 5000.0f);
+		setVelocity(new Vector2f(this.getVelocity().getX(), -75));
+		this.clearTouching();
+		if(movingLeft && !movingRight)
 		{
-
-			//setMaxVelocity(75.0f, 5000.0f);
-			setVelocity(new Vector2f(this.getVelocity().getX(), -75));
-			this.clearTouching();
+			moveLeft();
 		}
-
-
+		else if(!movingLeft && movingRight)
+		{
+			moveRight();
+		}
 	}
 
 
