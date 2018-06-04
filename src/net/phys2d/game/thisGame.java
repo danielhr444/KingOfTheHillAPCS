@@ -332,7 +332,7 @@ public class thisGame extends Game
 			//g.setColor(Color.black);
 			//g.drawString("Pause", 377, 427);
 			
-			g.drawImage(pause, 310, 450, 100, 50, null);
+			//g.drawImage(pause, 310, 450, 100, 50, null);
 			//creator.drawWorld(g);
 
 			g.setColor(Color.BLACK);
