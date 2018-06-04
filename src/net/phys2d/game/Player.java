@@ -300,6 +300,8 @@ public class Player extends Body
 			}
 		}
 		
+		
+		
 		if (this.isMovingLeft() || this.isMovingRight())
 		{
 			

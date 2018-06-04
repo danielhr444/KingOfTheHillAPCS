@@ -36,7 +36,8 @@ public class thisGame extends Game
 	ColissionHandler colHandler;
 	boolean worldDrawn = false;
 	boolean gameStarted = false;
-	//boolean gameStarted = false;
+
+	public static boolean paused;
 	static Object currentState = null;
 
 
@@ -101,6 +102,7 @@ public class thisGame extends Game
 			e.printStackTrace();
 		}
 		currentState = GameState.Menu;
+		paused = false;
 	}
 
 	protected void init(World world) 
@@ -172,7 +174,7 @@ public class thisGame extends Game
 				player1.setContested(true);
 				player2.setContested(true);
 			}
-			else
+			else					
 			{
 				player1.setContested(false);
 				player2.setContested(false);
@@ -218,18 +220,31 @@ public class thisGame extends Game
 			g.drawImage(bg, 1, 10, 800, 500, null);
 			g.drawImage(menu, 25, 50, 750, 100, null);
 			//g.drawString("here is a menu", 300, 100);
+
+			//g.drawRect(600, 355, 170, 113);
+			paused = false;
+
 			//g.drawRect(600, 355, 170, 113);
 			
 			g.drawImage(play, 300, 370, null);
 			//g.drawImage(credits, 540, 350, 200, 90, null);
 			g.drawImage(credits, 530, 350, null);
 			g.drawImage(rules, 30, 370, null);
+
+			try {
+				g.drawImage(ImageIO.read(cldr.getResource("Images/PlayerFrame3.png")), 165, -120, 600, 600, null);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			
 			//g.drawRect(535, 360, 275, 60);
 
 		}
 		else if (currentState.equals(GameState.Paused))
 		{
+
 
 		}
 		else if (currentState.equals(GameState.Rules))
@@ -254,19 +269,55 @@ public class thisGame extends Game
 			g.fillRect(350, 400, 100, 50);
 			g.setColor(Color.black);
 			g.drawString("Menu", 377, 427);
+			paused = false;
 
 			//g.drawRect(350, 400, 98, 49);
 
 		}
 		else if (currentState.equals(GameState.Credits))
 		{
-			g.drawString("here are some credits", 300, 100);
+			g.drawImage(bg, 0, 0, 800, 500, null);
+			g.setFont(new Font("Monospaced", Font.PLAIN, 24));
+			g.drawString("Credits: ", 50, 100);
+			g.drawString("Made using Phys2D.", 50, 150);
+			g.drawString("Ankit B, Daniel R, Aaron H, Andrew T.", 50, 200);
+			g.drawString("Neuhaus APCS, Period 1", 50, 250);
+			g.setFont(new Font("Monospaced", Font.PLAIN, 18));
+			g.drawString("", 50, 150 );
+			try {
+				g.drawImage(ImageIO.read(cldr.getResource("Images/PlayerFrame1.png")), 450, 100, 400, 400, null);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			try {
+				g.drawImage(ImageIO.read(cldr.getResource("Images/PlayerFrame2.png")), 50, 100, 400, 400, null);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			try {
+				g.drawImage(ImageIO.read(cldr.getResource("Images/PlayerFrame3.png")), 250, 100, 400, 400, null);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			g.setColor(Color.gray);
+			g.fillRect(350, 400, 100, 50);
+			g.setColor(Color.black);
+			g.drawString("Menu", 377, 427);
+			paused = false;
+			
+			
 		}
 		else if (currentState.equals(GameState.Game))
 		{
 			this.play(world);
 			//super.draw(g);
-
+			
 			//g.drawImage(bg, 0, -75, 800, 500, null);
 
 			//g.drawImage(player,(int) (player1.getX() - player1.getWidth() / 2),(int) (player1.getY() - player1.getHeight() / 2),(int) player1.getWidth(), (int) player1.getHeight(),null);
@@ -281,7 +332,7 @@ public class thisGame extends Game
 			//g.setColor(Color.black);
 			//g.drawString("Pause", 377, 427);
 			
-			g.drawImage(pause, 310, 375, 100, 50, null);
+			g.drawImage(pause, 310, 450, 100, 50, null);
 			//creator.drawWorld(g);
 
 			g.setColor(Color.BLACK);
@@ -306,6 +357,7 @@ public class thisGame extends Game
 			{
 				g.drawString("Player 2 in control!", 350, 100);
 			}
+			
 		}
 	}
 
