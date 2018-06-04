@@ -221,7 +221,7 @@ public class thisGame extends Game
 			g.drawImage(menu, 25, 50, 750, 100, null);
 			//g.drawString("here is a menu", 300, 100);
 
-			g.drawRect(600, 355, 170, 113);
+			//g.drawRect(600, 355, 170, 113);
 			paused = false;
 
 			//g.drawRect(600, 355, 170, 113);
@@ -239,7 +239,7 @@ public class thisGame extends Game
 			}
 
 			
-			g.drawRect(535, 360, 275, 60);
+			//g.drawRect(535, 360, 275, 60);
 
 		}
 		else if (currentState.equals(GameState.Paused))
