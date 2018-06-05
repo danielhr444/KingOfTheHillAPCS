@@ -4,13 +4,16 @@ import java.awt.Color;
 
 import java.awt.Font;
 import java.awt.Graphics2D;
+
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
+
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -19,6 +22,7 @@ import javax.swing.JOptionPane;
 import net.phys2d.raw.Body;
 import net.phys2d.raw.World;
 import net.phys2d.raw.shapes.Box;
+
 import net.phys2d.raw.shapes.Line;
 
 import javax.swing.*;
@@ -28,6 +32,7 @@ import java.io.*;
 
 import javafx.scene.media.*;
 import javafx.embed.swing.JFXPanel;
+
 public class thisGame extends Game 
 {
 	BufferedImage player;
@@ -40,16 +45,23 @@ public class thisGame extends Game
 	BufferedImage credits;
 	BufferedImage play;
 	WorldCreator creator;
+	LinkedList<PowerUp> powerups;
 	Player player1;
 	Player player2;	
 	ColissionHandler colHandler;
 	boolean worldDrawn = false;
 	boolean gameStarted = false;
+
 	
 	boolean menuMusicStart = false, gameMusicStart = false;
 	
 	MediaPlayer playMenuMusic, playGameMusic;
 	ClassLoader cldr;
+
+	PowerUp power;
+
+
+
 	public static boolean paused;
 	static Object currentState = null;
 
@@ -96,21 +108,21 @@ public class thisGame extends Game
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		try {
 			rules = ImageIO.read(cldr.getResource("Images/Testing_Button_Rules.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		try {
 			credits = ImageIO.read(cldr.getResource("Images/Testing_Button_Credits.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		try {
 			play = ImageIO.read(cldr.getResource("Images/Testing_Button_Play.png"));
 		} catch (IOException e) {
@@ -121,16 +133,22 @@ public class thisGame extends Game
 		String gameSong = cldr.getResource("Music/bensound-dubstep.mp3").toString();
 		currentState = GameState.Menu;
 		paused = false;
+
 		menuMusic = new Media(menuSong);
 		gameMusic = new Media(gameSong);
 		playMenuMusic = new MediaPlayer(menuMusic);
 		playGameMusic = new MediaPlayer(gameMusic);
+
+		powerups = new LinkedList<PowerUp>();
+		
+
 	}
 
 	protected void init(World world) 
 	{
 
-
+		power = new PowerUp(this.world, PowerUp.PowerType.Boost, (float)(Math.random() * 600));
+		powerups.add(power);
 		creator = new WorldCreator(world);
 		creator.createWorld();
 		super.frame.addMouseListener(new MouseInput());
@@ -200,6 +218,7 @@ public class thisGame extends Game
 		
 		if (currentState.equals(GameState.Game) && gameStarted)
 		{
+
 			if(menuMusicStart)
 			{
 				playMenuMusic.stop();
@@ -210,6 +229,8 @@ public class thisGame extends Game
 				playGameMusic.play();
 				gameMusicStart = true;
 			}
+
+
 			for (int i = 0; i < this.world.getBodies().size(); i++)
 			{
 				Body currentBod = this.world.getBodies().get(i);
@@ -224,7 +245,7 @@ public class thisGame extends Game
 			{
 				player1.setContested(false);
 				player2.setContested(false);
-				
+
 			}
 
 			if (player1.getPoints() > 20)
@@ -252,6 +273,20 @@ public class thisGame extends Game
 
 
 			colHandler.collide(player1, player2);
+			Iterator<PowerUp> iter = powerups.iterator();
+
+			while (iter.hasNext())
+			{
+				PowerUp thisPower = iter.next();
+				if (!thisPower.isAlive())
+				{
+					powerups.remove(thisPower);
+				}
+				else
+				{
+					thisPower.update(player1, player2);
+				}
+			}
 			//System.out.println("Has Collided: " + colHandler.hasCollided());
 			// TODO Auto-generated method stub
 		}
@@ -262,7 +297,7 @@ public class thisGame extends Game
 		g.setColor(Color.black);
 		if (currentState.equals(GameState.Menu))
 		{
-			
+
 			g.drawImage(bg, 1, 10, 800, 500, null);
 			g.drawImage(menu, 25, 50, 750, 100, null);
 			//g.drawString("here is a menu", 300, 100);
@@ -271,7 +306,7 @@ public class thisGame extends Game
 			paused = false;
 
 			//g.drawRect(600, 355, 170, 113);
-			
+
 			g.drawImage(play, 300, 370, null);
 			//g.drawImage(credits, 540, 350, 200, 90, null);
 			g.drawImage(credits, 530, 350, null);
@@ -284,7 +319,7 @@ public class thisGame extends Game
 				e.printStackTrace();
 			}
 
-			
+
 			//g.drawRect(535, 360, 275, 60);
 
 		}
@@ -337,34 +372,34 @@ public class thisGame extends Game
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			try {
 				g.drawImage(ImageIO.read(cldr.getResource("Images/PlayerFrame2.png")), 50, 100, 400, 400, null);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			try {
 				g.drawImage(ImageIO.read(cldr.getResource("Images/PlayerFrame3.png")), 250, 100, 400, 400, null);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			g.setColor(Color.gray);
 			g.fillRect(350, 400, 100, 50);
 			g.setColor(Color.black);
 			g.drawString("Menu", 377, 427);
 			paused = false;
-			
-			
+
+
 		}
 		else if (currentState.equals(GameState.Game))
 		{
 			this.play(world);
 			//super.draw(g);
-			
+
 			//g.drawImage(bg, 0, -75, 800, 500, null);
 
 			//g.drawImage(player,(int) (player1.getX() - player1.getWidth() / 2),(int) (player1.getY() - player1.getHeight() / 2),(int) player1.getWidth(), (int) player1.getHeight(),null);
@@ -378,7 +413,7 @@ public class thisGame extends Game
 			//g.fillRect(310, 60, 100, 50);
 			//g.setColor(Color.black);
 			//g.drawString("Pause", 377, 427);
-			
+
 			//g.drawImage(pause, 310, 450, 100, 50, null);
 			//creator.drawWorld(g);
 
@@ -404,12 +439,22 @@ public class thisGame extends Game
 			{
 				g.drawString("Player 2 in control!", 350, 100);
 			}
-			
+
+			Iterator<PowerUp> iter = powerups.iterator();
+
+			while (iter.hasNext())
+			{
+				iter.next().draw(g);
+				
+			}
+			//g.drawImage(hillBG, 1, 10, 800, 500, null);
+			//super.draw(g);
 		}
 	}
 
 
-	public void run() {
+	public void run() 
+	{
 		// TODO Auto-generated method stub
 
 	}
