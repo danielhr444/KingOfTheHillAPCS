@@ -3,6 +3,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
@@ -12,6 +13,8 @@ import net.phys2d.raw.BodyList;
 import net.phys2d.raw.World;
 import net.phys2d.raw.shapes.DynamicShape;
 
+
+
 public class Player extends Body
 {
 	private World myWorld;
@@ -19,9 +22,13 @@ public class Player extends Body
 	private boolean movingRight;
 	private boolean isUp = false;
 	private boolean needsRespawn = false;
+	private boolean hasForce, hasLevitate, hasBoost;
+	private boostHandler booster;
+	private levitateHandler levitater;
+	private forceHandler forcer;
 	private int points;
 	private boolean contested;
-	private pointCounter pointHandler;
+	private static pointCounter pointHandler;
 	private Image[] myIcon;
 	private int myTicks;
 	private float mySpawnX, mySpawnY;
@@ -31,6 +38,92 @@ public class Player extends Body
 	 * @param mass
 	 * @param myName
 	 */
+	
+	private class levitateHandler extends TimerTask
+	{
+
+		
+		private int time = 0;
+		private boolean shouldRun = false;
+		
+		public void start()
+		{
+			shouldRun = true;
+			time = 0;
+		}
+		
+		public void run() 
+		{
+			if (time > 15)
+			{
+				shouldRun = false;
+				time = 0;
+			}
+			if (shouldRun)
+			{
+				time++;
+				
+			}
+		}
+	}
+	
+	private class boostHandler extends TimerTask
+	{
+		private int time = 0;
+		private boolean shouldRun = false;
+		
+		public void start()
+		{
+			shouldRun = true;
+			time = 0;
+		}
+		
+		public boolean isRunning()
+		{
+			return shouldRun;
+		}
+		
+		public void run() 
+		{
+			if (time > 5)
+			{
+				shouldRun = false;
+				time = 0;
+				
+			}
+			if (shouldRun)
+			{
+				time++;
+			}
+		}
+	}
+	
+	private class forceHandler extends TimerTask
+	{
+		private int time = 0;
+		private boolean shouldRun = false;
+		
+		public void start()
+		{
+			shouldRun = true;
+			time = 0;
+		}
+		
+		public void run() 
+		{
+			if (time > 15)
+			{
+				shouldRun = false;
+				time = 0;
+			}
+			if (shouldRun)
+			{
+				time++;
+			}
+		}
+	}
+
+	
 	public Player(DynamicShape shape, float mass, String myName) 
 	{
 		super(myName, shape, mass);
@@ -38,7 +131,13 @@ public class Player extends Body
 
 		Timer timer = new Timer();
 		pointHandler = new pointCounter();
+		booster = new boostHandler();
+		forcer = new forceHandler();
+		levitater = new levitateHandler();
 
+		timer.scheduleAtFixedRate(booster, 1000, 1000);
+		timer.scheduleAtFixedRate(forcer, 1000, 1000);
+		timer.scheduleAtFixedRate(levitater, 1000, 1000);
 		timer.scheduleAtFixedRate(pointHandler, 1000, 1000);
 		setMaxVelocity(75.0f, 75.0f);
 		contested = false;
@@ -65,6 +164,8 @@ public class Player extends Body
 		}
 
 		myTicks = 0;
+		hasForce = false; 
+		hasLevitate = false;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -275,6 +376,7 @@ public class Player extends Body
 		{
 			pointHandler.setOnHill(false);
 		}
+		pointHandler.setBoost(booster.isRunning());
 		points = pointHandler.getPoints();
 
 
@@ -340,17 +442,30 @@ public class Player extends Body
 	{
 		if (power.equals(PowerUp.PowerType.Boost))
 		{
-			
+			booster.start();
 		}
 		else if (power.equals(PowerUp.PowerType.Levitate))
 		{
-			
+			levitater.start();
 		}
 		else if (power.equals(PowerUp.PowerType.Force))
 		{
-			
+			forcer.start();
 		}
 	}
+
+
+	public boolean HasForce() 
+	{
+		return hasForce;
+	}
+
+
+	public boolean HasLevitate() 
+	{
+		return hasLevitate;
+	}
+
 
 }
 
