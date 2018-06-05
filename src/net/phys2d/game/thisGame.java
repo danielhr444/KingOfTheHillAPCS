@@ -3,12 +3,10 @@ package net.phys2d.game;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Shape;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -17,7 +15,6 @@ import javax.swing.JOptionPane;
 import net.phys2d.raw.Body;
 import net.phys2d.raw.World;
 import net.phys2d.raw.shapes.Box;
-import net.phys2d.raw.shapes.Line;
 public class thisGame extends Game 
 {
 	BufferedImage player;
@@ -30,6 +27,7 @@ public class thisGame extends Game
 	BufferedImage credits;
 	BufferedImage play;
 	WorldCreator creator;
+	LinkedList<PowerUp> powerups;
 	Player player1;
 	Player player2;
 	ClassLoader cldr ;	
@@ -37,8 +35,8 @@ public class thisGame extends Game
 	boolean worldDrawn = false;
 	boolean gameStarted = false;
 	PowerUp power;
-	
-	
+
+
 	public static boolean paused;
 	static Object currentState = null;
 
@@ -105,14 +103,15 @@ public class thisGame extends Game
 		}
 		currentState = GameState.Menu;
 		paused = false;
+		powerups = new LinkedList<PowerUp>();
 		
 	}
 
 	protected void init(World world) 
 	{
 
-		//power = new PowerUp(this.world, PowerUp.PowerType.Boost, (float)(Math.random() * 600));
-
+		power = new PowerUp(this.world, PowerUp.PowerType.Boost, (float)(Math.random() * 600));
+		powerups.add(power);
 		creator = new WorldCreator(world);
 		creator.createWorld();
 		super.frame.addMouseListener(new MouseInput());
@@ -211,6 +210,20 @@ public class thisGame extends Game
 
 
 			colHandler.collide(player1, player2);
+			Iterator<PowerUp> iter = powerups.iterator();
+
+			while (iter.hasNext())
+			{
+				PowerUp thisPower = iter.next();
+				if (!thisPower.isAlive())
+				{
+					powerups.remove(thisPower);
+				}
+				else
+				{
+					thisPower.update(player1, player2);
+				}
+			}
 			//System.out.println("Has Collided: " + colHandler.hasCollided());
 			// TODO Auto-generated method stub
 		}
@@ -363,9 +376,15 @@ public class thisGame extends Game
 				g.drawString("Player 2 in control!", 350, 100);
 			}
 
-			//power.draw(g);
-			//power.update(player2, player2);
+			Iterator<PowerUp> iter = powerups.iterator();
 
+			while (iter.hasNext())
+			{
+				iter.next().draw(g);
+				
+			}
+			//g.drawImage(hillBG, 1, 10, 800, 500, null);
+			//super.draw(g);
 		}
 	}
 

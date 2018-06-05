@@ -16,7 +16,8 @@ public class PowerUp extends Body
 	private Object myType;
 	private BufferedImage myImage;
 	private World myWorld;
-
+	private boolean isHere = true;
+	
 	public enum PowerType
 	{
 		Force(),
@@ -27,9 +28,15 @@ public class PowerUp extends Body
 	/**
 	 * @param world
 	 */
+	
+	public boolean isAlive()
+	{
+		return isHere;
+	}
+	
 	public PowerUp(World world, PowerType type, float f)
 	{
-		super(new Box(50,50), 1.0f);
+		super(new Box(25,25), 1.0f);
 		myType = type;
 
 		if (myType.equals(PowerType.Force))
@@ -71,13 +78,14 @@ public class PowerUp extends Body
 	{
 		BodyList list = this.getTouching();
 		boolean containsp1 = list.contains(p1);
-
+		System.out.println(containsp1);
 		boolean containsp2 = list.contains(p2);
 		if (containsp1)
 		{
 			p1.activatePowerup((PowerType) myType);
 			System.out.println("p1 touching");
 			myWorld.remove(this);
+			isHere = false;
 			
 		}
 		else if (containsp2)
@@ -85,12 +93,14 @@ public class PowerUp extends Body
 			p2.activatePowerup((PowerType) myType);
 			System.out.println("p1 touching");
 			myWorld.remove(this);
+			isHere = false;
+			
 		}
 
 	}
 
 	public void draw(Graphics2D g)
 	{
-		g.drawImage(myImage, (int)this.getPosition().getX(), (int)this.getPosition().getY(), 50, 50, null);
+		g.drawImage(myImage, (int)(this.getPosition().getX() - 12.5), (int)(this.getPosition().getY() - 12.5), 25, 25, null);
 	}
 }
