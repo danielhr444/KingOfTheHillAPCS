@@ -36,7 +36,9 @@ public class thisGame extends Game
 	ColissionHandler colHandler;
 	boolean worldDrawn = false;
 	boolean gameStarted = false;
-
+	PowerUp power;
+	
+	
 	public static boolean paused;
 	static Object currentState = null;
 
@@ -80,21 +82,21 @@ public class thisGame extends Game
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		try {
 			rules = ImageIO.read(cldr.getResource("Images/Testing_Button_Rules.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		try {
 			credits = ImageIO.read(cldr.getResource("Images/Testing_Button_Credits.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		try {
 			play = ImageIO.read(cldr.getResource("Images/Testing_Button_Play.png"));
 		} catch (IOException e) {
@@ -103,11 +105,13 @@ public class thisGame extends Game
 		}
 		currentState = GameState.Menu;
 		paused = false;
+		
 	}
 
 	protected void init(World world) 
 	{
 
+		//power = new PowerUp(this.world, PowerUp.PowerType.Boost, (float)(Math.random() * 600));
 
 		creator = new WorldCreator(world);
 		creator.createWorld();
@@ -164,6 +168,7 @@ public class thisGame extends Game
 		if (currentState.equals(GameState.Game) && gameStarted)
 		{
 
+
 			for (int i = 0; i < this.world.getBodies().size(); i++)
 			{
 				Body currentBod = this.world.getBodies().get(i);
@@ -178,7 +183,7 @@ public class thisGame extends Game
 			{
 				player1.setContested(false);
 				player2.setContested(false);
-				
+
 			}
 
 			if (player1.getPoints() > 20)
@@ -216,7 +221,7 @@ public class thisGame extends Game
 		g.setColor(Color.black);
 		if (currentState.equals(GameState.Menu))
 		{
-			
+
 			g.drawImage(bg, 1, 10, 800, 500, null);
 			g.drawImage(menu, 25, 50, 750, 100, null);
 			//g.drawString("here is a menu", 300, 100);
@@ -225,7 +230,7 @@ public class thisGame extends Game
 			paused = false;
 
 			//g.drawRect(600, 355, 170, 113);
-			
+
 			g.drawImage(play, 300, 370, null);
 			//g.drawImage(credits, 540, 350, 200, 90, null);
 			g.drawImage(credits, 530, 350, null);
@@ -238,7 +243,7 @@ public class thisGame extends Game
 				e.printStackTrace();
 			}
 
-			
+
 			//g.drawRect(535, 360, 275, 60);
 
 		}
@@ -290,34 +295,34 @@ public class thisGame extends Game
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			try {
 				g.drawImage(ImageIO.read(cldr.getResource("Images/PlayerFrame2.png")), 50, 100, 400, 400, null);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			try {
 				g.drawImage(ImageIO.read(cldr.getResource("Images/PlayerFrame3.png")), 250, 100, 400, 400, null);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			g.setColor(Color.gray);
 			g.fillRect(350, 400, 100, 50);
 			g.setColor(Color.black);
 			g.drawString("Menu", 377, 427);
 			paused = false;
-			
-			
+
+
 		}
 		else if (currentState.equals(GameState.Game))
 		{
 			this.play(world);
 			//super.draw(g);
-			
+
 			//g.drawImage(bg, 0, -75, 800, 500, null);
 
 			//g.drawImage(player,(int) (player1.getX() - player1.getWidth() / 2),(int) (player1.getY() - player1.getHeight() / 2),(int) player1.getWidth(), (int) player1.getHeight(),null);
@@ -331,7 +336,7 @@ public class thisGame extends Game
 			//g.fillRect(310, 60, 100, 50);
 			//g.setColor(Color.black);
 			//g.drawString("Pause", 377, 427);
-			
+
 			//g.drawImage(pause, 310, 450, 100, 50, null);
 			//creator.drawWorld(g);
 
@@ -357,12 +362,16 @@ public class thisGame extends Game
 			{
 				g.drawString("Player 2 in control!", 350, 100);
 			}
-			
+
+			//power.draw(g);
+			//power.update(player2, player2);
+
 		}
 	}
 
 
-	public void run() {
+	public void run() 
+	{
 		// TODO Auto-generated method stub
 
 	}

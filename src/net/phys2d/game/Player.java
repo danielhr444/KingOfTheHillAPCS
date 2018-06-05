@@ -335,7 +335,22 @@ public class Player extends Body
 			}
 		}
 	}
-
+	
+	public void activatePowerup(PowerUp.PowerType power)
+	{
+		if (power.equals(PowerUp.PowerType.Boost))
+		{
+			
+		}
+		else if (power.equals(PowerUp.PowerType.Levitate))
+		{
+			
+		}
+		else if (power.equals(PowerUp.PowerType.Force))
+		{
+			
+		}
+	}
 
 }
 
