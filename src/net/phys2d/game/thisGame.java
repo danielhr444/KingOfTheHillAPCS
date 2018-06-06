@@ -129,8 +129,8 @@ public class thisGame extends Game
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String menuSong = cldr.getResource("Music/bensound-energy.mp3").toString();
-		String gameSong = cldr.getResource("Music/bensound-dubstep.mp3").toString();
+		String menuSong = cldr.getResource("Music/No_Game_No_Life.mp3").toString();
+		String gameSong = cldr.getResource("Music/Arcade_Ahri.mp3").toString();
 		currentState = GameState.Menu;
 		paused = false;
 
@@ -248,10 +248,11 @@ public class thisGame extends Game
 
 			}
 
-			if (player1.getPoints() > 20)
+			if (player1.getPoints() > 30)
 			{
 				//g.drawString("Player 1 wins!", 350, 100);
-				JOptionPane.showMessageDialog(new JFrame(), "Player 1", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(new JFrame(),
+						"Player 1", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
 				//this.init(world);
 				//System.exit(0);
 				currentState = GameState.Menu;
@@ -259,10 +260,11 @@ public class thisGame extends Game
 				world.clear();
 				this.init(world);
 			}
-			else if (player2.getPoints() > 20)
+			else if (player2.getPoints() > 30)
 			{
 				//g.drawString("Player 2 wins!", 350, 100);
-				JOptionPane.showMessageDialog(new JFrame(),  "Player 2", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(new JFrame(),
+						"Player 2", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
 				currentState = GameState.Menu;
 				//this.init(world);
 				//System.exit(0);
