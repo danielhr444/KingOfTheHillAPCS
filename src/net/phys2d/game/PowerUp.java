@@ -42,7 +42,7 @@ public class PowerUp extends Body
 		if (myType.equals(PowerType.Force))
 		{
 			try {
-				myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Images/boxx.png"));
+				myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Images/hammer.png"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -51,7 +51,7 @@ public class PowerUp extends Body
 		else if (myType.equals(PowerType.Levitate))
 		{
 			try {
-				myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Images/boxx.png"));
+				myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Images/wings.jpg"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
