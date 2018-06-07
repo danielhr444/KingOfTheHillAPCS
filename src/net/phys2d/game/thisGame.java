@@ -367,7 +367,7 @@ public class thisGame extends Game
 			g.setFont(new Font("Monospaced", Font.PLAIN, 24));
 			g.drawString("Credits: ", 50, 100);
 			g.drawString("Made using Phys2D.", 50, 150);
-			g.drawString("Music played by Aaron H", 50, 200);
+			g.drawString("Music played by Aaron H. Music written by Konomi Suzuki and ", 50, 200);
 			g.drawString("Ankit B, Daniel R, Aaron H, Andrew T.", 50, 250);
 			g.drawString("Neuhaus APCS, Period 1", 50, 300);
 			g.setFont(new Font("Monospaced", Font.PLAIN, 18));
