@@ -16,8 +16,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import net.phys2d.raw.Body;
 import net.phys2d.raw.World;
@@ -46,10 +44,11 @@ public class thisGame extends Game
 	BufferedImage credits;
 	BufferedImage play;
 	WorldCreator creator;
-	LinkedList<PowerUp> powerups;
+	public static LinkedList<PowerUp> powerups;
 	Player player1;
 	Player player2;	
 	ColissionHandler colHandler;
+	java.util.Timer powerUpTimer;
 	boolean worldDrawn = false;
 	boolean gameStarted = false;
 
@@ -143,14 +142,14 @@ public class thisGame extends Game
 		playMenuMusic.setStartTime(new Duration(5500));
 		playGameMusic.setStartTime(new Duration(5500));
 		powerups = new LinkedList<PowerUp>();
+		powerUpTimer = new java.util.Timer();
 		
-
 	}
 
 	protected void init(World world) 
 	{
 
-		powerups.add(new PowerUp(this.world, PowerUp.PowerType.Levitate, (float)(Math.random() * 600)));
+		//powerups.add(new PowerUp(this.world, PowerUp.PowerType.Levitate, (float)(Math.random() * 600)));
 		creator = new WorldCreator(world);
 		creator.createWorld();
 		super.frame.addMouseListener(new MouseInput());
@@ -190,6 +189,9 @@ public class thisGame extends Game
 
 			colHandler = new ColissionHandler();
 			gameStarted = true;
+			PowerUpCreator powerCreator = new PowerUpCreator();
+			powerCreator.giveWorld(world);
+			powerUpTimer.scheduleAtFixedRate(powerCreator, 1000, 5000);
 		}
 	}
 

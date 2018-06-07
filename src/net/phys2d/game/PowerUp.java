@@ -71,6 +71,7 @@ public class PowerUp extends Body
 		this.setRotatable(false);
 		
 		myWorld = world;
+		System.out.print(this);
 		world.add(this);
 	}
 
