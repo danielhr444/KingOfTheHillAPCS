@@ -39,90 +39,10 @@ public class Player extends Body
 	 * @param myName
 	 */
 	
-	private class levitateHandler extends TimerTask
-	{
-
-		
-		private int time = 0;
-		private boolean shouldRun = false;
-		
-		public void start()
-		{
-			shouldRun = true;
-			time = 0;
-		}
-		
-		public void run() 
-		{
-			if (time > 15)
-			{
-				shouldRun = false;
-				time = 0;
-			}
-			if (shouldRun)
-			{
-				time++;
-				
-			}
-		}
-	}
 	
-	private class boostHandler extends TimerTask
-	{
-		private int time = 0;
-		private boolean shouldRun = false;
-		
-		public void start()
-		{
-			shouldRun = true;
-			time = 0;
-		}
-		
-		public boolean isRunning()
-		{
-			return shouldRun;
-		}
-		
-		public void run() 
-		{
-			if (time > 5)
-			{
-				shouldRun = false;
-				time = 0;
-				
-			}
-			if (shouldRun)
-			{
-				time++;
-			}
-		}
-	}
 	
-	private class forceHandler extends TimerTask
-	{
-		private int time = 0;
-		private boolean shouldRun = false;
-		
-		public void start()
-		{
-			shouldRun = true;
-			time = 0;
-		}
-		
-		public void run() 
-		{
-			if (time > 15)
-			{
-				shouldRun = false;
-				time = 0;
-			}
-			if (shouldRun)
-			{
-				time++;
-			}
-		}
-	}
-
+	
+	
 	
 	public Player(DynamicShape shape, float mass, String myName) 
 	{
@@ -376,7 +296,7 @@ public class Player extends Body
 		{
 			pointHandler.setOnHill(false);
 		}
-		pointHandler.setBoost(booster.isRunning());
+		//pointHandler.setBoost(booster.isRunning());
 		points = pointHandler.getPoints();
 
 
@@ -402,7 +322,7 @@ public class Player extends Body
 			}
 		}
 		
-		
+			
 		
 		if (this.isMovingLeft() || this.isMovingRight())
 		{
@@ -419,25 +339,6 @@ public class Player extends Body
 	/**
 	 * work in progress- collide with other player
 	 */
-	public void punch()
-	{
-		BodyList touching = this.getTouching();
-		for(int i = 0; i < touching.size(); i++)
-		{
-			if(touching.get(i) instanceof Player)
-			{
-				Player temp = (Player) touching.get(i);
-
-				if(Math.abs(temp.getForce().getX()) > Math.abs(this.getForce().getX()) )
-					this.addForce(new Vector2f(temp.getForce().getX(), temp.getForce().getY()));
-				else if(Math.abs(temp.getForce().getX()) < Math.abs(this.getForce().getX()) )
-					temp.addForce(new Vector2f(this.getForce().getX(), this.getForce().getY()));
-				this.clearTouching();
-				System.out.println("help");
-			}
-		}
-	}
-	
 	public void activatePowerup(PowerUp.PowerType power)
 	{
 		if (power.equals(PowerUp.PowerType.Boost))
