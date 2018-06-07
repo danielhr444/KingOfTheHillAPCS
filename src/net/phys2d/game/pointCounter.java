@@ -5,10 +5,16 @@ public class pointCounter extends TimerTask
 {
 	private int points;
 	private boolean playerOnHill = false;
-
+	private boolean hasBoost = false;
+	
 	public void setOnHill(boolean onHill)
 	{
 		playerOnHill = onHill;
+	}
+	
+	public void setBoost(boolean boost)
+	{
+		hasBoost = boost;
 	}
 
 	public pointCounter()
@@ -25,6 +31,10 @@ public class pointCounter extends TimerTask
 	{
 		if (playerOnHill && !thisGame.paused)
 		{
+			if (hasBoost)
+			{
+				points++;
+			}
 			points++;
 		}
 	}

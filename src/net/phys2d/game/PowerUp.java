@@ -60,7 +60,7 @@ public class PowerUp extends Body
 		else if (myType.equals(PowerType.Boost))
 		{
 			try {
-				myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Images/boxx.png"));
+				myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Images/up-circular-xxl.png"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -78,12 +78,12 @@ public class PowerUp extends Body
 	{
 		BodyList list = this.getTouching();
 		boolean containsp1 = list.contains(p1);
-		System.out.println(containsp1);
+		//System.out.println(containsp1);
 		boolean containsp2 = list.contains(p2);
 		if (containsp1)
 		{
 			p1.activatePowerup((PowerType) myType);
-			System.out.println("p1 touching");
+			//System.out.println("p1 touching");
 			myWorld.remove(this);
 			isHere = false;
 			
@@ -91,7 +91,7 @@ public class PowerUp extends Body
 		else if (containsp2)
 		{
 			p2.activatePowerup((PowerType) myType);
-			System.out.println("p1 touching");
+			//System.out.println("p1 touching");
 			myWorld.remove(this);
 			isHere = false;
 			

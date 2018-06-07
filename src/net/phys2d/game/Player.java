@@ -3,6 +3,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
@@ -12,6 +13,8 @@ import net.phys2d.raw.BodyList;
 import net.phys2d.raw.World;
 import net.phys2d.raw.shapes.DynamicShape;
 
+
+
 public class Player extends Body
 {
 	private World myWorld;
@@ -19,6 +22,10 @@ public class Player extends Body
 	private boolean movingRight;
 	private boolean isUp = false;
 	private boolean needsRespawn = false;
+	private boolean hasForce, hasLevitate, hasBoost;
+	private boostHandler booster;
+	private levitateHandler levitater;
+	private forceHandler forcer;
 	private int points;
 	private boolean contested;
 	private pointCounter pointHandler;
@@ -31,6 +38,12 @@ public class Player extends Body
 	 * @param mass
 	 * @param myName
 	 */
+
+
+
+
+
+
 	public Player(DynamicShape shape, float mass, String myName) 
 	{
 		super(myName, shape, mass);
@@ -38,7 +51,13 @@ public class Player extends Body
 
 		Timer timer = new Timer();
 		pointHandler = new pointCounter();
+		booster = new boostHandler();
+		forcer = new forceHandler();
+		levitater = new levitateHandler();
 
+		timer.scheduleAtFixedRate(booster, 1000, 1000);
+		timer.scheduleAtFixedRate(forcer, 1000, 1000);
+		timer.scheduleAtFixedRate(levitater, 1000, 1000);
 		timer.scheduleAtFixedRate(pointHandler, 1000, 1000);
 		setMaxVelocity(75.0f, 75.0f);
 		contested = false;
@@ -65,6 +84,8 @@ public class Player extends Body
 		}
 
 		myTicks = 0;
+		hasForce = false; 
+		hasLevitate = false;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -82,7 +103,7 @@ public class Player extends Body
 		mySpawnX = x;
 		mySpawnY = y;
 	}
-	
+
 	/**
 	 * @return player height
 	 */
@@ -194,8 +215,15 @@ public class Player extends Body
 	public void jump()
 	{
 		//if (!isUp())
-		//setMaxVelocity(75.0f, 5000.0f);
-		setVelocity(new Vector2f(this.getVelocity().getX(), -75));
+		setMaxVelocity(75.0f, 5000.0f);
+		if (levitater.isRunning())
+		{
+			setVelocity(new Vector2f(this.getVelocity().getX(), -130));
+		}
+		else
+		{
+			setVelocity(new Vector2f(this.getVelocity().getX(), -75));
+		}
 		this.clearTouching();
 		if(movingLeft && !movingRight)
 		{
@@ -230,6 +258,10 @@ public class Player extends Body
 	 */
 	public boolean topOfHill()
 	{
+		if (forcer.isRunning())
+		{
+			return true;
+		}
 		//System.out.println(this.getClass().getName() + this.getX() + " " +  this.getY());
 		return (this.getX() > 330 && this.getX() < 390 && this.getY() < 230);
 	}
@@ -265,7 +297,7 @@ public class Player extends Body
 			this.setPosition(mySpawnX, mySpawnY);
 			this.needsRespawn = false;
 		}
-		
+
 		super.update();
 		if (this.topOfHill() && !this.getContested())
 		{
@@ -275,6 +307,7 @@ public class Player extends Body
 		{
 			pointHandler.setOnHill(false);
 		}
+		pointHandler.setBoost(booster.isRunning());
 		points = pointHandler.getPoints();
 
 
@@ -296,16 +329,66 @@ public class Player extends Body
 			else
 			{
 				g.drawString(this.getName() + " Respawning...", this.mySpawnX - 40, this.mySpawnY + 100);
-				
+
 			}
 		}
-		
-		
-		
-		if (this.isMovingLeft() || this.isMovingRight())
+
+		if (booster.isRunning())
 		{
-			
-			g.drawImage(myIcon[myTicks%2],(int) this.getX() - 110,(int) this.getY() - 195, 300, 300, null);
+			if (this.getName().equals("Player 2"))
+			{
+				g.drawString(this.getName() + " Boost Active", this.mySpawnX - 90, this.mySpawnY + 100);
+			}
+			else
+			{
+				g.drawString(this.getName() + " Boost Active", this.mySpawnX - 40, this.mySpawnY + 100);
+
+			}
+		}
+		else if (levitater.isRunning())
+		{
+			if (this.getName().equals("Player 2"))
+			{
+				g.drawString(this.getName() + " Levitator Active", this.mySpawnX - 90, this.mySpawnY + 100);
+			}
+			else
+			{
+				g.drawString(this.getName() + " Levitator Active", this.mySpawnX - 40, this.mySpawnY + 100);
+
+			}
+		}
+		else if (levitater.isRunning())
+		{
+			if (this.getName().equals("Player 2"))
+			{
+				g.drawString(this.getName() + " Levitate Active", this.mySpawnX - 90, this.mySpawnY + 100);
+			}
+			else
+			{
+				g.drawString(this.getName() + " Levitate Active", this.mySpawnX - 40, this.mySpawnY + 100);
+
+			}
+		}else if (forcer.isRunning())
+		{
+			if (this.getName().equals("Player 2"))
+			{
+				g.drawString(this.getName() + " Force Active", this.mySpawnX - 90, this.mySpawnY + 100);
+			}
+			else
+			{
+				g.drawString(this.getName() + " Force Active", this.mySpawnX - 40, this.mySpawnY + 100);
+
+			}
+		}
+
+		if (this.isMovingLeft())
+		{
+			g.drawImage(myIcon[1],(int) this.getX() - 110,(int) this.getY() - 195, 300, 300, null);
+		}
+		else if (this.isMovingRight())
+		{
+			g.drawImage(myIcon[0],(int) this.getX() - 110,(int) this.getY() - 195, 300, 300, null);
+
 		}
 		else
 		{
@@ -317,40 +400,34 @@ public class Player extends Body
 	/**
 	 * work in progress- collide with other player
 	 */
-	public void punch()
-	{
-		BodyList touching = this.getTouching();
-		for(int i = 0; i < touching.size(); i++)
-		{
-			if(touching.get(i) instanceof Player)
-			{
-				Player temp = (Player) touching.get(i);
-
-				if(Math.abs(temp.getForce().getX()) > Math.abs(this.getForce().getX()) )
-					this.addForce(new Vector2f(temp.getForce().getX(), temp.getForce().getY()));
-				else if(Math.abs(temp.getForce().getX()) < Math.abs(this.getForce().getX()) )
-					temp.addForce(new Vector2f(this.getForce().getX(), this.getForce().getY()));
-				this.clearTouching();
-				System.out.println("help");
-			}
-		}
-	}
-	
 	public void activatePowerup(PowerUp.PowerType power)
 	{
 		if (power.equals(PowerUp.PowerType.Boost))
 		{
-			
+			booster.start();
 		}
 		else if (power.equals(PowerUp.PowerType.Levitate))
 		{
-			
+			levitater.start();
 		}
 		else if (power.equals(PowerUp.PowerType.Force))
 		{
-			
+			forcer.start();
 		}
 	}
+
+
+	public boolean HasForce() 
+	{
+		return hasForce;
+	}
+
+
+	public boolean HasLevitate() 
+	{
+		return hasLevitate;
+	}
+
 
 }
 
