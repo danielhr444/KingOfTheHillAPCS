@@ -1,8 +1,15 @@
 package net.phys2d.game;
 
 import java.awt.Color;
+
 import java.awt.Font;
 import java.awt.Graphics2D;
+
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Iterator;
@@ -15,6 +22,17 @@ import javax.swing.JOptionPane;
 import net.phys2d.raw.Body;
 import net.phys2d.raw.World;
 import net.phys2d.raw.shapes.Box;
+
+import net.phys2d.raw.shapes.Line;
+
+import javax.swing.*;
+import sun.audio.*;
+import java.awt.event.*;
+import java.io.*;
+
+import javafx.scene.media.*;
+import javafx.embed.swing.JFXPanel;
+
 public class thisGame extends Game 
 {
 	BufferedImage player;
@@ -29,18 +47,28 @@ public class thisGame extends Game
 	WorldCreator creator;
 	LinkedList<PowerUp> powerups;
 	Player player1;
-	Player player2;
-	ClassLoader cldr ;	
+	Player player2;	
 	ColissionHandler colHandler;
 	boolean worldDrawn = false;
 	boolean gameStarted = false;
+
+	
+	boolean menuMusicStart = false, gameMusicStart = false;
+	
+	MediaPlayer playMenuMusic, playGameMusic;
+	ClassLoader cldr;
+
 	PowerUp power;
+
 
 
 	public static boolean paused;
 	static Object currentState = null;
 
-
+	Media menuMusic, gameMusic;
+	
+	JFXPanel f = new JFXPanel();
+	
 	public thisGame()
 	{
 		super("King of the Hill");
@@ -101,10 +129,19 @@ public class thisGame extends Game
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		String menuSong = cldr.getResource("Music/No_Game_No_Life.mp3").toString();
+		String gameSong = cldr.getResource("Music/Arcade_Ahri.mp3").toString();
 		currentState = GameState.Menu;
 		paused = false;
+
+		menuMusic = new Media(menuSong);
+		gameMusic = new Media(gameSong);
+		playMenuMusic = new MediaPlayer(menuMusic);
+		playGameMusic = new MediaPlayer(gameMusic);
+
 		powerups = new LinkedList<PowerUp>();
 		
+
 	}
 
 	protected void init(World world) 
@@ -115,6 +152,7 @@ public class thisGame extends Game
 		creator = new WorldCreator(world);
 		creator.createWorld();
 		super.frame.addMouseListener(new MouseInput());
+		
 		//Shape square = new Rectangle2D.Float(100.0f, 100.0f, 100.0f, 100.0f);
 		//Body rectangle = new Body("Player 1", new Box(50f, 50f), 0.25f);
 		//rectangle.setMaxVelocity(50, 1000);
@@ -163,9 +201,34 @@ public class thisGame extends Game
 
 
 	public void update() 
-	{
+	{	
+		if(currentState.equals(GameState.Menu))
+		{
+			if(!menuMusicStart)
+			{
+				playMenuMusic.play();
+				menuMusicStart = true;
+			}
+			if(gameMusicStart)
+			{
+				playGameMusic.stop();
+				gameMusicStart = false;
+			}
+		}
+		
 		if (currentState.equals(GameState.Game) && gameStarted)
 		{
+
+			if(menuMusicStart)
+			{
+				playMenuMusic.stop();
+				menuMusicStart = false;
+			}
+			if(!gameMusicStart)
+			{
+				playGameMusic.play();
+				gameMusicStart = true;
+			}
 
 
 			for (int i = 0; i < this.world.getBodies().size(); i++)
@@ -185,10 +248,11 @@ public class thisGame extends Game
 
 			}
 
-			if (player1.getPoints() > 20)
+			if (player1.getPoints() > 30)
 			{
 				//g.drawString("Player 1 wins!", 350, 100);
-				JOptionPane.showMessageDialog(new JFrame(),  "Player 1", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(new JFrame(),
+						"Player 1", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
 				//this.init(world);
 				//System.exit(0);
 				currentState = GameState.Menu;
@@ -196,10 +260,11 @@ public class thisGame extends Game
 				world.clear();
 				this.init(world);
 			}
-			else if (player2.getPoints() > 20)
+			else if (player2.getPoints() > 30)
 			{
 				//g.drawString("Player 2 wins!", 350, 100);
-				JOptionPane.showMessageDialog(new JFrame(),  "Player 2", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(new JFrame(),
+						"Player 2", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
 				currentState = GameState.Menu;
 				//this.init(world);
 				//System.exit(0);
@@ -298,8 +363,9 @@ public class thisGame extends Game
 			g.setFont(new Font("Monospaced", Font.PLAIN, 24));
 			g.drawString("Credits: ", 50, 100);
 			g.drawString("Made using Phys2D.", 50, 150);
-			g.drawString("Ankit B, Daniel R, Aaron H, Andrew T.", 50, 200);
-			g.drawString("Neuhaus APCS, Period 1", 50, 250);
+			g.drawString("Music by https://www.bensound.com/.", 50, 200);
+			g.drawString("Ankit B, Daniel R, Aaron H, Andrew T.", 50, 250);
+			g.drawString("Neuhaus APCS, Period 1", 50, 300);
 			g.setFont(new Font("Monospaced", Font.PLAIN, 18));
 			g.drawString("", 50, 150 );
 			try {

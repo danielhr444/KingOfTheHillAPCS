@@ -30,7 +30,7 @@ public class KeyInput extends KeyAdapter
 			System.exit(1);
 		}
 
-		if(!thisGame.paused)
+		
 		{
 			switch (key)
 			{
@@ -47,6 +47,7 @@ public class KeyInput extends KeyAdapter
 
 				player1.moveLeft();//set vel to -5
 				player1.setMovingLeft(true);
+				System.out.println("working");
 				break;
 
 			case KeyEvent.VK_D:
