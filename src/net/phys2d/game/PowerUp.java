@@ -60,7 +60,7 @@ public class PowerUp extends Body
 		else if (myType.equals(PowerType.Boost))
 		{
 			try {
-				myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Images/boxx.png"));
+				myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Images/up-circular-xxl.png"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

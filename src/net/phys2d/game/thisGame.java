@@ -147,8 +147,7 @@ public class thisGame extends Game
 	protected void init(World world) 
 	{
 
-		power = new PowerUp(this.world, PowerUp.PowerType.Boost, (float)(Math.random() * 600));
-		powerups.add(power);
+		powerups.add(new PowerUp(this.world, PowerUp.PowerType.Levitate, (float)(Math.random() * 600)));
 		creator = new WorldCreator(world);
 		creator.createWorld();
 		super.frame.addMouseListener(new MouseInput());

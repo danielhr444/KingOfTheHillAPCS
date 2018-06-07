@@ -15,9 +15,14 @@ public class levitateHandler extends TimerTask
 		time = 0;
 	}
 	
+	public boolean isRunning()
+	{
+		return shouldRun;
+	}
+	
 	public void run() 
 	{
-		if (time > 15)
+		if (time > 10)
 		{
 			shouldRun = false;
 			time = 0;

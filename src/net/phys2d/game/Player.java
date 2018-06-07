@@ -28,7 +28,7 @@ public class Player extends Body
 	private forceHandler forcer;
 	private int points;
 	private boolean contested;
-	private static pointCounter pointHandler;
+	private pointCounter pointHandler;
 	private Image[] myIcon;
 	private int myTicks;
 	private float mySpawnX, mySpawnY;
@@ -38,12 +38,12 @@ public class Player extends Body
 	 * @param mass
 	 * @param myName
 	 */
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	public Player(DynamicShape shape, float mass, String myName) 
 	{
 		super(myName, shape, mass);
@@ -103,7 +103,7 @@ public class Player extends Body
 		mySpawnX = x;
 		mySpawnY = y;
 	}
-	
+
 	/**
 	 * @return player height
 	 */
@@ -215,8 +215,15 @@ public class Player extends Body
 	public void jump()
 	{
 		//if (!isUp())
-		//setMaxVelocity(75.0f, 5000.0f);
-		setVelocity(new Vector2f(this.getVelocity().getX(), -75));
+		setMaxVelocity(75.0f, 5000.0f);
+		if (levitater.isRunning())
+		{
+			setVelocity(new Vector2f(this.getVelocity().getX(), -130));
+		}
+		else
+		{
+			setVelocity(new Vector2f(this.getVelocity().getX(), -75));
+		}
 		this.clearTouching();
 		if(movingLeft && !movingRight)
 		{
@@ -251,6 +258,10 @@ public class Player extends Body
 	 */
 	public boolean topOfHill()
 	{
+		if (forcer.isRunning())
+		{
+			return true;
+		}
 		//System.out.println(this.getClass().getName() + this.getX() + " " +  this.getY());
 		return (this.getX() > 330 && this.getX() < 390 && this.getY() < 230);
 	}
@@ -286,7 +297,7 @@ public class Player extends Body
 			this.setPosition(mySpawnX, mySpawnY);
 			this.needsRespawn = false;
 		}
-		
+
 		super.update();
 		if (this.topOfHill() && !this.getContested())
 		{
@@ -296,7 +307,7 @@ public class Player extends Body
 		{
 			pointHandler.setOnHill(false);
 		}
-		//pointHandler.setBoost(booster.isRunning());
+		pointHandler.setBoost(booster.isRunning());
 		points = pointHandler.getPoints();
 
 
@@ -318,16 +329,66 @@ public class Player extends Body
 			else
 			{
 				g.drawString(this.getName() + " Respawning...", this.mySpawnX - 40, this.mySpawnY + 100);
-				
+
 			}
 		}
-		
-			
-		
-		if (this.isMovingLeft() || this.isMovingRight())
+
+		if (booster.isRunning())
 		{
-			
-			g.drawImage(myIcon[myTicks%2],(int) this.getX() - 110,(int) this.getY() - 195, 300, 300, null);
+			if (this.getName().equals("Player 2"))
+			{
+				g.drawString(this.getName() + " Boost Active", this.mySpawnX - 90, this.mySpawnY + 100);
+			}
+			else
+			{
+				g.drawString(this.getName() + " Boost Active", this.mySpawnX - 40, this.mySpawnY + 100);
+
+			}
+		}
+		else if (levitater.isRunning())
+		{
+			if (this.getName().equals("Player 2"))
+			{
+				g.drawString(this.getName() + " Levitator Active", this.mySpawnX - 90, this.mySpawnY + 100);
+			}
+			else
+			{
+				g.drawString(this.getName() + " Levitator Active", this.mySpawnX - 40, this.mySpawnY + 100);
+
+			}
+		}
+		else if (levitater.isRunning())
+		{
+			if (this.getName().equals("Player 2"))
+			{
+				g.drawString(this.getName() + " Levitate Active", this.mySpawnX - 90, this.mySpawnY + 100);
+			}
+			else
+			{
+				g.drawString(this.getName() + " Levitate Active", this.mySpawnX - 40, this.mySpawnY + 100);
+
+			}
+		}else if (forcer.isRunning())
+		{
+			if (this.getName().equals("Player 2"))
+			{
+				g.drawString(this.getName() + " Force Active", this.mySpawnX - 90, this.mySpawnY + 100);
+			}
+			else
+			{
+				g.drawString(this.getName() + " Force Active", this.mySpawnX - 40, this.mySpawnY + 100);
+
+			}
+		}
+
+		if (this.isMovingLeft())
+		{
+			g.drawImage(myIcon[1],(int) this.getX() - 110,(int) this.getY() - 195, 300, 300, null);
+		}
+		else if (this.isMovingRight())
+		{
+			g.drawImage(myIcon[0],(int) this.getX() - 110,(int) this.getY() - 195, 300, 300, null);
+
 		}
 		else
 		{
