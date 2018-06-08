@@ -144,6 +144,7 @@ public class thisGame extends Game
 		powerups = new LinkedList<PowerUp>();
 		powerUpTimer = new java.util.Timer();
 		
+		
 	}
 
 	protected void init(World world) 
@@ -189,9 +190,12 @@ public class thisGame extends Game
 
 			colHandler = new ColissionHandler();
 			gameStarted = true;
+			
 			PowerUpCreator powerCreator = new PowerUpCreator();
 			powerCreator.giveWorld(world);
+			powerUpTimer = new java.util.Timer();
 			powerUpTimer.scheduleAtFixedRate(powerCreator, 1000, 10000);
+			
 		}
 	}
 
@@ -220,81 +224,86 @@ public class thisGame extends Game
 			}
 		}
 		
-		if (currentState.equals(GameState.Game) && gameStarted)
+		if (currentState.equals(GameState.Game))
 		{
-
-			if(menuMusicStart)
+			this.play(world);
+			if(gameStarted)
 			{
-				playMenuMusic.stop();
-				menuMusicStart = false;
-			}
-			if(!gameMusicStart)
-			{
-				playGameMusic.play();
-				gameMusicStart = true;
-			}
-
-
-			for (int i = 0; i < this.world.getBodies().size(); i++)
-			{
-				Body currentBod = this.world.getBodies().get(i);
-				currentBod.update();
-			}
-			if (player1.topOfHill() && player2.topOfHill())
-			{
-				player1.setContested(true);
-				player2.setContested(true);
-			}
-			else					
-			{
-				player1.setContested(false);
-				player2.setContested(false);
-
-			}
-
-			if (player1.getPoints() > 30)
-			{
-				//g.drawString("Player 1 wins!", 350, 100);
-				JOptionPane.showMessageDialog(new JFrame(),
-						"Player 1", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
-				//this.init(world);
-				//System.exit(0);
-				currentState = GameState.Menu;
-				gameStarted = false;
-				world.clear();
-				this.init(world);
-			}
-			else if (player2.getPoints() > 30)
-			{
-				//g.drawString("Player 2 wins!", 350, 100);
-				JOptionPane.showMessageDialog(new JFrame(),
-						"Player 2", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
-				currentState = GameState.Menu;
-				//this.init(world);
-				//System.exit(0);
-				gameStarted = false;
-				world.clear();
-				this.init(world);
-			}
-
-
-			colHandler.collide(player1, player2);
-			Iterator<PowerUp> iter = powerups.iterator();
-
-			while (iter.hasNext())
-			{
-				PowerUp thisPower = iter.next();
-				if (!thisPower.isAlive())
+				if(menuMusicStart)
 				{
-					powerups.remove(thisPower);
+					playMenuMusic.stop();
+					menuMusicStart = false;
 				}
-				else
+				if(!gameMusicStart)
 				{
-					thisPower.update(player1, player2);
+					playGameMusic.play();
+					gameMusicStart = true;
 				}
+	
+	
+				for (int i = 0; i < this.world.getBodies().size(); i++)
+				{
+					Body currentBod = this.world.getBodies().get(i);
+					currentBod.update();
+				}
+				if (player1.topOfHill() && player2.topOfHill())
+				{
+					player1.setContested(true);
+					player2.setContested(true);
+				}
+				else					
+				{
+					player1.setContested(false);
+					player2.setContested(false);
+	
+				}
+	
+				if (player1.getPoints() > 30)
+				{
+					//g.drawString("Player 1 wins!", 350, 100);
+					JOptionPane.showMessageDialog(new JFrame(),
+							"Player 1", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
+					//this.init(world);
+					//System.exit(0);
+					currentState = GameState.Menu;
+					gameStarted = false;
+					powerUpTimer = null;
+					world.clear();
+					this.init(world);
+				}
+				else if (player2.getPoints() > 30)
+				{
+					//g.drawString("Player 2 wins!", 350, 100);
+					JOptionPane.showMessageDialog(new JFrame(),
+							"Player 2", "WINNER!!!", JOptionPane.PLAIN_MESSAGE);
+					currentState = GameState.Menu;
+					//this.init(world);
+					//System.exit(0);
+					gameStarted = false;
+					powerUpTimer = null;
+					world.clear();
+					this.init(world);
+				}
+	
+	
+				colHandler.collide(player1, player2);
+				Iterator<PowerUp> iter = powerups.iterator();
+	
+				while (iter.hasNext())
+				{
+					PowerUp thisPower = iter.next();
+					if (!thisPower.isAlive())
+					{
+						powerups.remove(thisPower);
+					}
+					else
+					{
+						thisPower.update(player1, player2);
+					}
+				}
+				//System.out.println("Has Collided: " + colHandler.hasCollided());
+				// TODO Auto-generated method stub
 			}
-			//System.out.println("Has Collided: " + colHandler.hasCollided());
-			// TODO Auto-generated method stub
 		}
 	}
 
@@ -334,7 +343,7 @@ public class thisGame extends Game
 
 
 		}
-		else if (currentState.equals(GameState.Rules))
+		else if (currentState.equals(GameState.Rules1))
 		{
 			g.drawImage(bg, 0, 0, 800, 500, null);
 			g.setFont(new Font("Monospaced", Font.PLAIN, 24));
@@ -353,23 +362,51 @@ public class thisGame extends Game
 			g.drawString("Left Arrow: Left", 500, 350);
 
 			g.setColor(Color.gray);
-			g.fillRect(350, 400, 100, 50);
+			g.fillRect(200, 400, 100, 50);
 			g.setColor(Color.black);
-			g.drawString("Menu", 377, 427);
+			g.drawString("Menu", 227, 427);
 			paused = false;
+			
+			g.setColor(Color.gray);
+			g.fillRect(500, 400, 100, 50);
+			g.setColor(Color.black);
+			g.drawString("Next", 527, 427);
 
 			//g.drawRect(350, 400, 98, 49);
 
+		}
+		else if(currentState.equals(GameState.Rules2))
+		{
+			g.drawImage(bg, 0, 0, 800, 500, null);
+			
+			g.setFont(new Font("Monospaced", Font.PLAIN, 24));
+			g.drawString("Powerups: ", 50, 100);
+			g.setFont(new Font("Monospaced", Font.PLAIN, 18));
+			g.drawString("Levitate: Increases jump height for 10 seconds", 50, 150);
+			g.drawString("Force: Takes possession of hill for 4 seconds", 50, 200);
+			g.drawString("Boost: Points gained are doubled for 5 seconds", 50, 250);
+			
+			g.setColor(Color.gray);
+			g.fillRect(200, 400, 100, 50);
+			g.setColor(Color.black);
+			g.drawString("Back", 227, 427);
+			paused = false;
+			
+			g.setColor(Color.gray);
+			g.fillRect(500, 400, 100, 50);
+			g.setColor(Color.black);
+			g.drawString("Menu", 527, 427);
 		}
 		else if (currentState.equals(GameState.Credits))
 		{
 			g.drawImage(bg, 0, 0, 800, 500, null);
 			g.setFont(new Font("Monospaced", Font.PLAIN, 24));
-			g.drawString("Credits: ", 50, 100);
-			g.drawString("Made using Phys2D.", 50, 150);
-			g.drawString("Music played by Aaron H. Music written by Konomi Suzuki and ", 50, 200);
-			g.drawString("Ankit B, Daniel R, Aaron H, Andrew T.", 50, 250);
-			g.drawString("Neuhaus APCS, Period 1", 50, 300);
+			g.drawString("Credits: ", 40, 100);
+			g.setFont(new Font("Monospaced", Font.PLAIN, 18));
+			g.drawString("Made using Phys2D.", 40, 150);
+			g.drawString("Music played by Aaron H and composed by Konomi Suzuki and Riot Games", 40, 200);
+			g.drawString("Ankit B, Daniel R, Aaron H, Andrew T.", 40, 250);
+			g.drawString("Neuhaus APCS, Period 1", 40, 300);
 			g.setFont(new Font("Monospaced", Font.PLAIN, 18));
 			g.drawString("", 50, 150 );
 			try {
