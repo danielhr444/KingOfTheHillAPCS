@@ -34,7 +34,7 @@ public class PowerUp extends Body
 		return isHere;
 	}
 	
-	public PowerUp(World world, PowerType type, float f)
+	public PowerUp(World world, PowerType type)
 	{
 		super(new Box(25,25), 1.0f);
 		myType = type;
@@ -66,7 +66,7 @@ public class PowerUp extends Body
 				e.printStackTrace();
 			}
 		}
-		this.setPosition(f, 0);
+		this.setPosition((float)Math.random() * 800, 0);
 		this.setDamping(0.05f);
 		this.setRotatable(false);
 		
