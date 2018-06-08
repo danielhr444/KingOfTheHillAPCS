@@ -42,7 +42,7 @@ public class PowerUp extends Body
 		if (myType.equals(PowerType.Force))
 		{
 			try {
-				myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Images/hammer.png"));
+				myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Images/force_powerup.png"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -51,7 +51,7 @@ public class PowerUp extends Body
 		else if (myType.equals(PowerType.Levitate))
 		{
 			try {
-				myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Images/wings.jpg"));
+				myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Images/levitate_powerup.png"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -60,13 +60,15 @@ public class PowerUp extends Body
 		else if (myType.equals(PowerType.Boost))
 		{
 			try {
-				myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Images/up-circular-xxl.png"));
+				myImage = ImageIO.read(this.getClass().getClassLoader().getResource("Images/boost_powerup.png"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		this.setPosition((float) Math.random() * 800, 0);
+
+		this.setPosition((float)Math.random() * 800, 0);
+
 		this.setDamping(0.05f);
 		this.setRotatable(false);
 		
@@ -102,6 +104,10 @@ public class PowerUp extends Body
 
 	public void draw(Graphics2D g)
 	{
-		g.drawImage(myImage, (int)(this.getPosition().getX() - 12.5), (int)(this.getPosition().getY() - 12.5), 25, 25, null);
+		if (this.myType.equals(PowerUp.PowerType.Force) || this.myType.equals(PowerUp.PowerType.Levitate))
+			g.drawImage(myImage, (int)(this.getPosition().getX() - 12.5), (int)(this.getPosition().getY() - 12.5), 30, 30, null);
+		else
+			g.drawImage(myImage, (int)(this.getPosition().getX() - 12.5), (int)(this.getPosition().getY() - 12.5), 25, 25, null);
+		
 	}
 }
