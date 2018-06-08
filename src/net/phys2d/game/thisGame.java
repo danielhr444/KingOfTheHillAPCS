@@ -43,6 +43,7 @@ public class thisGame extends Game
 	BufferedImage rules;
 	BufferedImage credits;
 	BufferedImage play;
+	BufferedImage levitate, force, boost;
 	WorldCreator creator;
 	public static LinkedList<PowerUp> powerups;
 	Player player1;
@@ -125,6 +126,26 @@ public class thisGame extends Game
 
 		try {
 			play = ImageIO.read(cldr.getResource("Images/Testing_Button_Play.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			force = ImageIO.read(cldr.getResource("Images/force_powerup.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			levitate = ImageIO.read(cldr.getResource("Images/levitate_powerup.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			boost = ImageIO.read(cldr.getResource("Images/boost_powerup.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -396,6 +417,10 @@ public class thisGame extends Game
 			g.fillRect(500, 400, 100, 50);
 			g.setColor(Color.black);
 			g.drawString("Menu", 527, 427);
+			
+			g.drawImage(boost, 570, 230, 25, 25, null);
+			g.drawImage(force, 568, 180, 30, 30, null);
+			g.drawImage(levitate, 568, 130, 30, 30, null);
 		}
 		else if (currentState.equals(GameState.Credits))
 		{
