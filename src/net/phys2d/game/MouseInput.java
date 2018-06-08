@@ -19,7 +19,7 @@ public class MouseInput extends MouseAdapter
 			if(e.getX() > 35 && e.getX() < 235 && e.getY() > 370 && e.getY() < 430)
 			{
 				System.out.println(e.getX() + " " + e.getY());
-				thisGame.currentState = GameState.Rules;
+				thisGame.currentState = GameState.Rules1;
 			}
 			if(e.getX() > 310 && e.getX() < 475 && e.getY() > 375 && e.getY() < 425)
 			{
@@ -32,9 +32,18 @@ public class MouseInput extends MouseAdapter
 				thisGame.currentState = GameState.Credits;
 			}
 		}
-		else if(thisGame.currentState.equals((GameState.Rules)))
+		else if(thisGame.currentState.equals((GameState.Rules1)))
 		{
-			if(e.getX() > 350 && e.getX() < 448 && e.getY() > 400 && e.getY() < 449)
+			if(e.getX() > 200 && e.getX() < 300 && e.getY() > 400 && e.getY() < 450)
+				thisGame.currentState = GameState.Menu;
+			if(e.getX() > 500 && e.getX() < 600 && e.getY() > 400 && e.getY() < 450)
+				thisGame.currentState = GameState.Rules2;
+		}
+		else if(thisGame.currentState.equals((GameState.Rules2)))
+		{
+			if(e.getX() > 200 && e.getX() < 300 && e.getY() > 400 && e.getY() < 450)
+				thisGame.currentState = GameState.Rules1;
+			if(e.getX() > 500 && e.getX() < 600 && e.getY() > 400 && e.getY() < 450)
 				thisGame.currentState = GameState.Menu;
 		}
 		else if(thisGame.currentState.equals((GameState.Credits)))

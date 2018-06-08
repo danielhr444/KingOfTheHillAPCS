@@ -6,5 +6,6 @@ public enum GameState
 	Game(),
 	Credits(),
 	Paused(),
-	Rules();
+	Rules1(),
+	Rules2();
 }
