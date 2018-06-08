@@ -17,7 +17,9 @@ public class PowerUpCreator extends TimerTask
 	public void run() 
 	{
 		double rand = Math.random() * 3;
-		if (rand > 0 && rand < 1) 
+
+		if (rand > 0 && rand < 1)
+
 			thisGame.powerups.add(new PowerUp(myWorld, PowerUp.PowerType.Boost));
 		else if (rand > 1 && rand < 2)
 			thisGame.powerups.add(new PowerUp(myWorld, PowerUp.PowerType.Levitate));

@@ -191,7 +191,7 @@ public class thisGame extends Game
 			gameStarted = true;
 			PowerUpCreator powerCreator = new PowerUpCreator();
 			powerCreator.giveWorld(world);
-			powerUpTimer.scheduleAtFixedRate(powerCreator, 1000, 5000);
+			powerUpTimer.scheduleAtFixedRate(powerCreator, 1000, 10000);
 		}
 	}
 
