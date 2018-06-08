@@ -51,7 +51,9 @@ public class thisGame extends Game
 	java.util.Timer powerUpTimer;
 	boolean worldDrawn = false;
 	boolean gameStarted = false;
+	boolean gameFinished = false;
 
+	Graphics2D drawer;
 	
 	boolean menuMusicStart = false, gameMusicStart = false;
 	
@@ -132,8 +134,8 @@ public class thisGame extends Game
 		String menuSong = cldr.getResource("Music/No_Game_No_Life.mp3").toString();
 		String gameSong = cldr.getResource("Music/Arcade_Ahri.mp3").toString();
 		currentState = GameState.Menu;
-		paused = false;
-
+		gameFinished = false;
+	
 		menuMusic = new Media(menuSong);
 		gameMusic = new Media(gameSong);
 		playMenuMusic = new MediaPlayer(menuMusic);
@@ -201,6 +203,7 @@ public class thisGame extends Game
 
 	public static void main(String args[])
 	{
+		
 		thisGame game = new thisGame();
 		game.start();
 
@@ -226,6 +229,7 @@ public class thisGame extends Game
 		
 		if (currentState.equals(GameState.Game))
 		{
+		//	this.draw(drawer);
 			this.play(world);
 			if(gameStarted)
 			{
@@ -267,7 +271,9 @@ public class thisGame extends Game
 					//System.exit(0);
 					currentState = GameState.Menu;
 					gameStarted = false;
+					gameFinished = true;
 					powerUpTimer = null;
+					powerups.clear();
 					world.clear();
 					this.init(world);
 				}
@@ -280,7 +286,9 @@ public class thisGame extends Game
 					//this.init(world);
 					//System.exit(0);
 					gameStarted = false;
+					gameFinished = true;
 					powerUpTimer = null;
+					powerups.clear();
 					world.clear();
 					this.init(world);
 				}
@@ -292,13 +300,16 @@ public class thisGame extends Game
 				while (iter.hasNext())
 				{
 					PowerUp thisPower = iter.next();
-					if (!thisPower.isAlive())
+					if(thisPower != null)
 					{
-						powerups.remove(thisPower);
-					}
-					else
-					{
-						thisPower.update(player1, player2);
+						if (!thisPower.isAlive())
+						{
+							powerups.remove(thisPower);
+						}
+						else
+						{
+							thisPower.update(player1, player2);
+						}
 					}
 				}
 				//System.out.println("Has Collided: " + colHandler.hasCollided());
@@ -440,6 +451,7 @@ public class thisGame extends Game
 		}
 		else if (currentState.equals(GameState.Game))
 		{
+			
 			this.play(world);
 			//super.draw(g);
 
@@ -477,10 +489,13 @@ public class thisGame extends Game
 			else if (player1.topOfHill())
 			{
 				g.drawString("Player 1 in control!", 350, 100);
+			
+					
 			}
 			else if (player2.topOfHill())
 			{
 				g.drawString("Player 2 in control!", 350, 100);
+			
 			}
 
 			Iterator<PowerUp> iter = powerups.iterator();
